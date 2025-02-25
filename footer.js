@@ -27,7 +27,14 @@ let currentLearnIndex = 0
 let currentExerciseIndex = 0
 let totalWordsLearn = 0
 let totalWordsExercise = 0
-let learnedWords = 0
+// let learnedWords = 0
+let learnedWords = {
+  noun: 0,
+  verb: 0,
+  adjective: 0,
+  adverb: 0,
+}
+
 let correctAnswerWordsCounter = 0
 let initialTotalWords = 0 // Yeni eklenen değişken
 
@@ -159,7 +166,11 @@ document.querySelectorAll('.dropdown-link').forEach((link) => {
       document.getElementById('dropdownHeader').innerText = selectedText
 
       // Sayaçları sıfırla
-      learnedWords = 0
+      Object.entries(learnedWords).forEach(([key, _]) => {
+        learnedWords[key] = 13
+        console.log('LEARNED WORDS NEW KEY/VALUE:' + learnedWords[key])
+      })
+
       correctAnswerWordsCounter = 0
       localStorage.setItem('learnedWords', learnedWords)
       localStorage.setItem(
