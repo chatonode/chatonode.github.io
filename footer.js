@@ -10,7 +10,17 @@ const JSON_URLS = {
     'https://script.googleusercontent.com/macros/echo?user_content_key=X5GmhOorbYcFAO9AlOBaKeigyKoSTW3fsY_nKBLZH6yNSgHGmqEU7BW-sShIapltxLFruSb5AYWrB4wVzGmkJIPVhIyUWXSYm5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnJZ31fvYy2gsmZkeRqZLyZW-rzexs4eP9SbReR_KHkVIG4bpUFOqrAIxJMj1cgsZLrxKiHKDk848jFZLaVWSAKXiKlrA50qxHQ&lib=MmEIQx_PXkRyMvxX9OmNoYFLDhaBgl_dE',
 }
 
+const JSON_URLS_VERB = {
+  b1telcpt1: 'https://chatonode.github.io/verb.json',
+  b1telcpt2: 'https://chatonode.github.io/verb.json',
+  b1telcpt3: 'https://chatonode.github.io/verb.json',
+  b1telcpt4: 'https://chatonode.github.io/verb.json',
+}
+
 // Global variables
+let currentType = 'noun'
+const types = ['noun', 'verb', 'adjective', 'adverb']
+
 let kelimeListesi = []
 let kelimeListesiExercise = []
 let currentLearnIndex = 0
@@ -20,8 +30,6 @@ let totalWordsExercise = 0
 let learnedWords = 0
 let correctAnswerWordsCounter = 0
 let initialTotalWords = 0 // Yeni eklenen değişken
-let currentType = 'noun'
-let types = ['noun', 'verb', 'adjective', 'adverb']
 
 let repeatButtons
 let iKnowButtons
