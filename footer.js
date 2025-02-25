@@ -321,7 +321,7 @@ function showLearnWord() {
     return
   }
 
-  const { almanca, artikel, ingilizce, ornek, highlight, seviye, kural } =
+  const { almanca, ingilizce, ornek, highlight, seviye, kural } =
     kelimeListesi[currentLearnIndex]
 
   if (learnedWords[currentType].length > 0) {
@@ -332,22 +332,27 @@ function showLearnWord() {
         )
     )
   }
-  const renk = artikelRenk(artikel)
 
-  // Highlight kısmını vurgula
-  let highlightedWord = almanca
-  if (highlight) {
-    const regex = new RegExp(`(${highlight})`, 'i')
-    highlightedWord = almanca.replace(
-      regex,
-      `<span class="highlight">$1</span>`
-    )
+  switch (currentType) {
+    case 'noun':
+      // Highlight kısmını vurgula
+      let highlightedWord = almanca
+      if (highlight) {
+        const regex = new RegExp(`(${highlight})`, 'i')
+        highlightedWord = almanca.replace(
+          regex,
+          `<span class="highlight">$1</span>`
+        )
+      }
+      const renk = artikelRenk(kelimeListesi[currentLearnIndex].artikel)
+      document.getElementById(
+        'wordLearn'
+      ).innerHTML = `<span style="color: ${renk};">${highlightedWord}</span>`
+    case 'verb':
+      document.getElementById('wordLearn-' + currentType).innerHTML = almanca
   }
 
   document.getElementById('levelTagLearn').innerText = seviye || 'N/A'
-  document.getElementById(
-    'wordLearn'
-  ).innerHTML = `<span style="color: ${renk};">${highlightedWord}</span>`
   document.getElementById('translationLearn').innerText = ingilizce || 'N/A'
   document.getElementById('exampleLearn').innerText = ornek || 'N/A'
 
