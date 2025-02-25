@@ -318,7 +318,7 @@ function showLearnWord() {
       'No words to display.'
     document.getElementById('translationLearn-' + currentType).innerText = ''
     document.getElementById('exampleLearn-' + currentType).innerText = ''
-    document.getElementById('levelTagLearn-' + currentType).innerText = ''
+    document.getElementById('levelTagLearn').innerText = ''
     document.getElementById('ruleLearn-' + currentType).innerText = '' // Kural boş
 
     if (iKnowButtons) {
@@ -361,7 +361,7 @@ function showLearnWord() {
       document.getElementById('wordLearn-' + currentType).innerHTML = almanca
   }
 
-  document.getElementById('levelTagLearn-' + currentType).innerText =
+  document.getElementById('levelTagLearn').innerText =
     seviye || 'N/A'
   document.getElementById('translationLearn-' + currentType).innerText =
     ingilizce || 'N/A'
