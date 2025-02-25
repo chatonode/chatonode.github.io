@@ -391,7 +391,7 @@ function showLearnWord() {
 function showExerciseWord() {
   if (!kelimeListesiExercise.length) {
     // Liste boşsa UI'ı temizle
-    document.getElementById('levelTagExercise-' + currentType).innerText = ''
+    document.getElementById('levelTagExercise').innerText = ''
     document.getElementById('exerciseWord-' + currentType).innerText = ''
     document.getElementById('exerciseTranslation-' + currentType).innerText = ''
     return
@@ -451,7 +451,7 @@ function showExerciseWord() {
 
   // Kelimenin Almanca kısmını göster
   document.getElementById('exerciseWord-' + currentType).innerText = kelime
-  document.getElementById('levelTagExercise-' + currentType).innerText =
+  document.getElementById('levelTagExercise').innerText =
     seviye || 'N/A'
 
   // İngilizce çeviriyi göster (ID üzerinden erişim)
