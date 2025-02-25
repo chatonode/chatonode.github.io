@@ -172,7 +172,7 @@ document.querySelectorAll('.dropdown-link').forEach((link) => {
       })
 
       correctAnswerWordsCounter = 0
-      localStorage.setItem('learnedWords', learnedWords)
+      localStorage.setItem('learnedWords', JSON.stringify(learnedWords))
       localStorage.setItem(
         'correctAnswerWordsCounter',
         correctAnswerWordsCounter
@@ -210,7 +210,7 @@ async function loadWords(topic) {
 
     // Sayaçları sıfırla
     // learnedWords = 0
-    // localStorage.setItem('learnedWords', learnedWords)
+    // localStorage.setItem('learnedWords', JSON.stringify(learnedWords))
     correctAnswerWordsCounter = 0
     localStorage.setItem('correctAnswerWordsCounter', correctAnswerWordsCounter)
 
@@ -728,7 +728,7 @@ function iKnowLearn() {
 
   if (learnedWords[currentType] < initialTotalWords) {
     learnedWords[currentType]++
-    localStorage.setItem('learnedWords', learnedWords)
+    localStorage.setItem('learnedWords', JSON.stringify(learnedWords))
 
     learnedWithLearnWords.push({
       almanca: currentWord.almanca,
