@@ -27,7 +27,7 @@ let currentLearnIndex = 0
 let currentExerciseIndex = 0
 let totalWordsLearn = 0
 let totalWordsExercise = 0
-// let learnedWords = 0
+
 const learnedWords = {
   noun: 0,
   verb: 0,
@@ -35,7 +35,13 @@ const learnedWords = {
   adverb: 0,
 }
 
-let correctAnswerWordsCounter = 0
+const correctAnswerWordsCounter = {
+  noun: 0,
+  verb: 0,
+  adjective: 0,
+  adverb: 0,
+}
+
 let initialTotalWords = 0 // Yeni eklenen değişken
 
 let repeatButtons
@@ -168,21 +174,22 @@ document.querySelectorAll('.dropdown-link').forEach((link) => {
       // // Sayaçları sıfırla
       Object.entries(learnedWords).forEach(([key, _]) => {
         learnedWords[key] = 0
-        console.log('LEARNED WORDS NEW KEY/VALUE:' + learnedWords[key])
       })
-
-      correctAnswerWordsCounter = 0
       localStorage.setItem('learnedWords', JSON.stringify(learnedWords))
+
+      Object.entries(correctAnswerWordsCounter).forEach(([key, _]) => {
+        correctAnswerWordsCounter[key] = 0
+      })
       localStorage.setItem(
         'correctAnswerWordsCounter',
-        correctAnswerWordsCounter
+        JSON.stringify(correctAnswerWordsCounter)
       )
 
       // UI'ı güncelle
       document.getElementById('remainingWordsCountLearn').innerText =
         learnedWords[currentType]
       document.getElementById('remainingWordsCountExercise').innerText =
-        correctAnswerWordsCounter
+        correctAnswerWordsCounter[currentType]
 
       // Seçilen konu başlığını güncelle
       updateTopicNames(selectedOption)
@@ -207,12 +214,6 @@ document.querySelectorAll('.dropdown-link').forEach((link) => {
 async function loadWords(topic) {
   try {
     showSkeleton()
-
-    // Sayaçları sıfırla
-    // learnedWords = 0
-    // localStorage.setItem('learnedWords', JSON.stringify(learnedWords))
-    correctAnswerWordsCounter = 0
-    localStorage.setItem('correctAnswerWordsCounter', correctAnswerWordsCounter)
 
     // Feedback mesajını temizle
     const feedbackMessage = document.getElementById('feedbackMessage')
@@ -260,12 +261,13 @@ async function loadWords(topic) {
         break
     }
 
+    document.getElementById('remainingWordsCountLearn').innerText =
+      learnedWords[currentType]
+    document.getElementById('remainingWordsCountExercise').innerText =
+      correctAnswerWordsCounter[currentType]
     document.getElementById('totalWordsCountLearn').innerText = totalWordsLearn
-    document.getElementById('remainingWordsCountLearn').innerText = learnedWords[currentType]
     document.getElementById('totalWordsCountExercise').innerText =
       totalWordsExercise
-    document.getElementById('remainingWordsCountExercise').innerText =
-      correctAnswerWordsCounter
 
     hideSkeleton()
   } catch (error) {
@@ -325,7 +327,9 @@ function showLearnWord() {
   if (learnedWords[currentType].length > 0) {
     kelimeListesi = kelimeListesi.filter(
       (word) =>
-        !learnedWords[currentType].some((learned) => learned.almanca === word.almanca)
+        !learnedWords[currentType].some(
+          (learned) => learned.almanca === word.almanca
+        )
     )
   }
   const renk = artikelRenk(artikel)
@@ -403,9 +407,9 @@ function showExerciseWord() {
     return
   }
 
-  if (correctAnswerWordsCounter === kelimeListesiExercise.length) {
+  if (correctAnswerWordsCounter[currentType] === kelimeListesiExercise.length) {
     document.getElementById('remainingWordsCountExercise').innerText =
-      correctAnswerWordsCounter
+      correctAnswerWordsCounter[currentType]
     showModal('You completed all exercise words! 🎉')
     document.getElementById('exampleLearn').innerText =
       'You learned all of the words, go to exercise section.'
@@ -742,7 +746,8 @@ function iKnowLearn() {
 
     kelimeListesi.splice(currentLearnIndex, 1)
 
-    document.getElementById('remainingWordsCountLearn').innerText = learnedWords[currentType]
+    document.getElementById('remainingWordsCountLearn').innerText =
+      learnedWords[currentType]
     document.getElementById('totalWordsCountLearn').innerText =
       initialTotalWords
 
@@ -867,15 +872,18 @@ document.addEventListener('DOMContentLoaded', function () {
 })
 
 function updateExerciseCounter() {
-  correctAnswerWordsCounter++
-  localStorage.setItem('correctAnswerWordsCounter', correctAnswerWordsCounter)
+  correctAnswerWordsCounter[currentType]++
+  localStorage.setItem(
+    'correctAnswerWordsCounter',
+    JSON.stringify(correctAnswerWordsCounter)
+  )
 
   document.getElementById('remainingWordsCountExercise').innerText =
-    correctAnswerWordsCounter
+    correctAnswerWordsCounter[currentType]
   document.getElementById('totalWordsCountExercise').innerText =
     initialTotalWords
 
-  if (correctAnswerWordsCounter >= initialTotalWords) {
+  if (correctAnswerWordsCounter[currentType] >= initialTotalWords) {
     showModalExercise('You completed all exercise words! 🎉')
     var buttonDer = document.getElementById('buttonDer')
     var buttonDie = document.getElementById('buttonDie')
