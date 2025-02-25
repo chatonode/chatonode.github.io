@@ -122,16 +122,16 @@ function hideSkeleton() {
 
 // Learn elements visibility
 function hideLearnElements() {
-  const elements = [
-    'addToFavoritesLearn',
-    'wordLearn',
-    'translationLearn',
-    'ruleLearn',
-    'sentenceHead',
-    'exampleLearn',
+  const elementIds = [
+    'addToFavoritesLearn-' + currentType,
+    'wordLearn-' + currentType,
+    'translationLearn-' + currentType,
+    'ruleLearn-' + currentType,
+    'sentenceHead-' + currentType,
+    'exampleLearn-' + currentType,
   ]
 
-  elements.forEach((id) => {
+  elementIds.forEach((id) => {
     const element = document.getElementById(id)
     if (element) {
       element.style.display = 'none'
@@ -140,16 +140,16 @@ function hideLearnElements() {
 }
 
 function showLearnElements() {
-  const elements = [
-    'addToFavoritesLearn',
-    'wordLearn',
-    'translationLearn',
-    'ruleLearn',
-    'sentenceHead',
-    'exampleLearn',
+  const elementIds = [
+    'addToFavoritesLearn-' + currentType,
+    'wordLearn-' + currentType,
+    'translationLearn-' + currentType,
+    'ruleLearn-' + currentType,
+    'sentenceHead-' + currentType,
+    'exampleLearn-' + currentType,
   ]
 
-  elements.forEach((id) => {
+  elementIds.forEach((id) => {
     const element = document.getElementById(id)
     if (element) {
       element.style.display = 'block'
@@ -186,10 +186,12 @@ document.querySelectorAll('.dropdown-link').forEach((link) => {
       )
 
       // UI'ı güncelle
-      document.getElementById('remainingWordsCountLearn').innerText =
-        learnedWords[currentType]
-      document.getElementById('remainingWordsCountExercise').innerText =
-        correctAnswerWordsCounter[currentType]
+      document.getElementById(
+        'remainingWordsCountLearn-' + currentType
+      ).innerText = learnedWords[currentType]
+      document.getElementById(
+        'remainingWordsCountExercise-' + currentType
+      ).innerText = correctAnswerWordsCounter[currentType]
 
       // Seçilen konu başlığını güncelle
       updateTopicNames(selectedOption)
@@ -216,7 +218,9 @@ async function loadWords(topic) {
     showSkeleton()
 
     // Feedback mesajını temizle
-    const feedbackMessage = document.getElementById('feedbackMessage')
+    const feedbackMessage = document.getElementById(
+      'feedbackMessage-' + currentType
+    )
     if (feedbackMessage) {
       feedbackMessage.innerText = ''
     }
@@ -261,13 +265,17 @@ async function loadWords(topic) {
         break
     }
 
-    document.getElementById('remainingWordsCountLearn').innerText =
-      learnedWords[currentType]
-    document.getElementById('remainingWordsCountExercise').innerText =
-      correctAnswerWordsCounter[currentType]
-    document.getElementById('totalWordsCountLearn').innerText = totalWordsLearn
-    document.getElementById('totalWordsCountExercise').innerText =
-      totalWordsExercise
+    document.getElementById(
+      'remainingWordsCountLearn-' + currentType
+    ).innerText = learnedWords[currentType]
+    document.getElementById(
+      'remainingWordsCountExercise-' + currentType
+    ).innerText = correctAnswerWordsCounter[currentType]
+    document.getElementById('totalWordsCountLearn-' + currentType).innerText =
+      totalWordsLearn
+    document.getElementById(
+      'totalWordsCountExercise-' + currentType
+    ).innerText = totalWordsExercise
 
     hideSkeleton()
   } catch (error) {
@@ -306,11 +314,12 @@ function artikelRenk(artikel) {
 
 function showLearnWord() {
   if (!kelimeListesi || kelimeListesi.length === 0) {
-    document.getElementById('wordLearn').innerText = 'No words to display.'
-    document.getElementById('translationLearn').innerText = ''
-    document.getElementById('exampleLearn').innerText = ''
-    document.getElementById('levelTagLearn').innerText = ''
-    document.getElementById('ruleLearn').innerText = '' // Kural boş
+    document.getElementById('wordLearn-' + currentType).innerText =
+      'No words to display.'
+    document.getElementById('translationLearn-' + currentType).innerText = ''
+    document.getElementById('exampleLearn-' + currentType).innerText = ''
+    document.getElementById('levelTagLearn-' + currentType).innerText = ''
+    document.getElementById('ruleLearn-' + currentType).innerText = '' // Kural boş
 
     if (iKnowButtons) {
       iKnowButtons.style.visibility = 'hidden'
@@ -346,17 +355,20 @@ function showLearnWord() {
       }
       const renk = artikelRenk(kelimeListesi[currentLearnIndex].artikel)
       document.getElementById(
-        'wordLearn'
+        'wordLearn-' + currentType
       ).innerHTML = `<span style="color: ${renk};">${highlightedWord}</span>`
     case 'verb':
       document.getElementById('wordLearn-' + currentType).innerHTML = almanca
   }
 
-  document.getElementById('levelTagLearn').innerText = seviye || 'N/A'
-  document.getElementById('translationLearn').innerText = ingilizce || 'N/A'
-  document.getElementById('exampleLearn').innerText = ornek || 'N/A'
+  document.getElementById('levelTagLearn-' + currentType).innerText =
+    seviye || 'N/A'
+  document.getElementById('translationLearn-' + currentType).innerText =
+    ingilizce || 'N/A'
+  document.getElementById('exampleLearn-' + currentType).innerText =
+    ornek || 'N/A'
 
-  const ruleLearnElement = document.getElementById('ruleLearn')
+  const ruleLearnElement = document.getElementById('ruleLearn-' + currentType)
 
   // Kural setini göster
   if (kural) {
@@ -379,9 +391,9 @@ function showLearnWord() {
 function showExerciseWord() {
   if (!kelimeListesiExercise.length) {
     // Liste boşsa UI'ı temizle
-    document.getElementById('levelTagExercise').innerText = ''
-    document.getElementById('exerciseWord').innerText = ''
-    document.getElementById('exerciseTranslation').innerText = ''
+    document.getElementById('levelTagExercise-' + currentType).innerText = ''
+    document.getElementById('exerciseWord-' + currentType).innerText = ''
+    document.getElementById('exerciseTranslation-' + currentType).innerText = ''
     return
   }
 
@@ -413,17 +425,18 @@ function showExerciseWord() {
   }
 
   if (correctAnswerWordsCounter[currentType] === kelimeListesiExercise.length) {
-    document.getElementById('remainingWordsCountExercise').innerText =
-      correctAnswerWordsCounter[currentType]
+    document.getElementById(
+      'remainingWordsCountExercise-' + currentType
+    ).innerText = correctAnswerWordsCounter[currentType]
     showModal('You completed all exercise words! 🎉')
-    document.getElementById('exampleLearn').innerText =
+    document.getElementById('exampleLearn-' + currentType).innerText =
       'You learned all of the words, go to exercise section.'
 
     buttonDer.style.visibility = 'hidden'
     buttonDie.style.visibility = 'hidden'
     buttonDas.style.visibility = 'hidden'
     document.getElementById(
-      'feedbackMessage'
+      'feedbackMessage-' + currentType
     ).innerText = `You completed all exercise words! 🎉`
   }
 
@@ -437,12 +450,13 @@ function showExerciseWord() {
   const renk = artikelRenk(artikel)
 
   // Kelimenin Almanca kısmını göster
-  document.getElementById('exerciseWord').innerText = kelime
-  document.getElementById('levelTagExercise').innerText = seviye || 'N/A'
+  document.getElementById('exerciseWord-' + currentType).innerText = kelime
+  document.getElementById('levelTagExercise-' + currentType).innerText =
+    seviye || 'N/A'
 
   // İngilizce çeviriyi göster (ID üzerinden erişim)
   const exerciseTranslationElement = document.getElementById(
-    'exerciseTranslation'
+    'exerciseTranslation-' + currentType
   )
   if (exerciseTranslationElement) {
     exerciseTranslationElement.innerText = ingilizce // İngilizce çeviriyi göster
@@ -452,23 +466,25 @@ function showExerciseWord() {
 
   if (progressWord) {
     const counter = progressWord.counter
-    document.getElementById('progressLeft').style.opacity =
+    document.getElementById('progressLeft-' + currentType).style.opacity =
       counter >= 1 ? '1' : '0.5'
-    document.getElementById('progressMiddle').style.opacity =
+    document.getElementById('progressMiddle-' + currentType).style.opacity =
       counter >= 2 ? '1' : '0.5'
-    document.getElementById('progressRight').style.opacity =
+    document.getElementById('progressRight-' + currentType).style.opacity =
       counter >= 3 ? '1' : '0.5'
   } else {
     // Default state
-    document.getElementById('progressLeft').style.opacity = '0.5'
-    document.getElementById('progressMiddle').style.opacity = '0.5'
-    document.getElementById('progressRight').style.opacity = '0.5'
+    document.getElementById('progressLeft-' + currentType).style.opacity = '0.5'
+    document.getElementById('progressMiddle-' + currentType).style.opacity =
+      '0.5'
+    document.getElementById('progressRight-' + currentType).style.opacity =
+      '0.5'
   }
 
   // Default olarak boş bırakılan artikel alanı
   document.getElementById('correctAnswerField').innerHTML = '___'
 
-  document.getElementById('feedbackMessage').innerText = ''
+  document.getElementById('feedbackMessage-' + currentType).innerText = ''
 }
 
 function checkAnswer(userArtikel) {
@@ -507,8 +523,10 @@ function checkAnswer(userArtikel) {
   console.log('Butonlar geçici olarak devre dışı bırakıldı.')
 
   if (userArtikel.toLowerCase() === artikel.toLowerCase()) {
-    document.getElementById('feedbackMessage').innerText = 'Correct! 🎉'
-    document.getElementById('feedbackMessage').style.color = 'green'
+    document.getElementById('feedbackMessage-' + currentType).innerText =
+      'Correct! 🎉'
+    document.getElementById('feedbackMessage-' + currentType).style.color =
+      'green'
 
     // Doğru artikeli göster
     const renk = artikelRenk(artikel)
@@ -522,7 +540,7 @@ function checkAnswer(userArtikel) {
         'https://github.com/heroofdarkroom/proje/raw/refs/heads/master/correct.mp3'
       )
       inProgressWords.push({ almanca: currentWord.almanca, counter: 1 })
-      document.getElementById('progressLeft').style.opacity = '1'
+      document.getElementById('progressLeft-' + currentType).style.opacity = '1'
 
       // Liste manipülasyonlarından sonra index kontrolü
       if (currentExerciseIndex >= kelimeListesiExercise.length) {
@@ -543,7 +561,8 @@ function checkAnswer(userArtikel) {
     } else {
       inProgressWords[inProgressIndex].counter += 1
       if (inProgressWords[inProgressIndex].counter === 2) {
-        document.getElementById('progressMiddle').style.opacity = '1'
+        document.getElementById('progressMiddle-' + currentType).style.opacity =
+          '1'
       }
       //3 kere bilindiyse learnede ekle
       if (inProgressWords[inProgressIndex].counter >= 3) {
@@ -559,10 +578,14 @@ function checkAnswer(userArtikel) {
 
         if (inProgressWords[inProgressIndex].counter === 3) {
           document.getElementById(
-            'feedbackMessage'
+            'feedbackMessage-' + currentType
           ).innerText = `This word: ${currentWord.almanca} added to learned list!🏆`
-          document.getElementById('feedbackMessage').style.color = 'green'
-          document.getElementById('progressRight').style.opacity = '1'
+          document.getElementById(
+            'feedbackMessage-' + currentType
+          ).style.color = 'green'
+          document.getElementById(
+            'progressRight-' + currentType
+          ).style.opacity = '1'
         }
         updateExerciseCounter()
         kelimeListesiExercise.splice(currentExerciseIndex, 1)
@@ -629,9 +652,12 @@ function checkAnswer(userArtikel) {
       }
 
       inProgressWords[inProgressIndex].counter = 0
-      document.getElementById('progressRight').style.opacity = '0.5'
-      document.getElementById('progressMiddle').style.opacity = '0.5'
-      document.getElementById('progressLeft').style.opacity = '0.5'
+      document.getElementById('progressRight-' + currentType).style.opacity =
+        '0.5'
+      document.getElementById('progressMiddle-' + currentType).style.opacity =
+        '0.5'
+      document.getElementById('progressLeft-' + currentType).style.opacity =
+        '0.5'
 
       currentExerciseIndex++
       if (currentExerciseIndex >= kelimeListesiExercise.length) {
@@ -652,9 +678,10 @@ function checkAnswer(userArtikel) {
       }
     }
     document.getElementById(
-      'feedbackMessage'
+      'feedbackMessage-' + currentType
     ).innerText = `Upps! ⚠️ Rule: ${kural}`
-    document.getElementById('feedbackMessage').style.color = 'red'
+    document.getElementById('feedbackMessage-' + currentType).style.color =
+      'red'
     setTimeout(() => {
       document.getElementById('correctAnswerField').innerHTML = '___' // Tekrar boş bırak
       buttonDer.style.visibility = 'visible'
@@ -751,9 +778,10 @@ function iKnowLearn() {
 
     kelimeListesi.splice(currentLearnIndex, 1)
 
-    document.getElementById('remainingWordsCountLearn').innerText =
-      learnedWords[currentType]
-    document.getElementById('totalWordsCountLearn').innerText =
+    document.getElementById(
+      'remainingWordsCountLearn-' + currentType
+    ).innerText = learnedWords[currentType]
+    document.getElementById('totalWordsCountLearn-' + currentType).innerText =
       initialTotalWords
 
     if (learnedWords[currentType] >= initialTotalWords) {
@@ -783,13 +811,17 @@ document.addEventListener('DOMContentLoaded', () => {
 function setupEventListeners() {
   try {
     // Butonları ID ile seçelim
-    const repeatButton = document.getElementById('repeatButtonLearn')
-    const iKnowButton = document.getElementById('iKnowButtonLearn')
+    const repeatButton = document.getElementById(
+      'repeatButtonLearn-' + currentType
+    )
+    const iKnowButton = document.getElementById(
+      'iKnowButtonLearn-' + currentType
+    )
 
     setupListenerForIknowAndLearn(iKnowButton, repeatButton)
 
-    const repeatButtonVerb = document.getElementById('repeatButtonLearnVerb')
-    const iKnowButtonVerb = document.getElementById('iKnowButtonLearnVerb')
+    // const repeatButtonVerb = document.getElementById('repeatButtonLearnVerb')
+    // const iKnowButtonVerb = document.getElementById('iKnowButtonLearnVerb')
 
     const outfav = document.getElementById('outfav')
     const infav = document.getElementById('infav')
@@ -865,7 +897,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 document.addEventListener('DOMContentLoaded', function () {
   document
-    .querySelector('#email-form')
+    .getElementById('email-form')
     .addEventListener('submit', function (event) {
       event.preventDefault() // Formun hemen gönderilmesini engeller
       gtag_report_conversion()
@@ -883,9 +915,9 @@ function updateExerciseCounter() {
     JSON.stringify(correctAnswerWordsCounter)
   )
 
-  document.getElementById('remainingWordsCountExercise').innerText =
+  document.getElementById('remainingWordsCountExercise-' + currentType).innerText =
     correctAnswerWordsCounter[currentType]
-  document.getElementById('totalWordsCountExercise').innerText =
+  document.getElementById('totalWordsCountExercise-' + currentType).innerText =
     initialTotalWords
 
   if (correctAnswerWordsCounter[currentType] >= initialTotalWords) {
@@ -898,7 +930,7 @@ function updateExerciseCounter() {
     buttonDie.style.visibility = 'hidden'
     buttonDas.style.visibility = 'hidden'
 
-    document.getElementById('feedbackMessage').innerText =
+    document.getElementById('feedbackMessage-' + currentType).innerText =
       'You completed all exercise words! 🎉'
   }
 }
@@ -996,8 +1028,8 @@ function navigateToPage(pageId) {
 
     // Sayfa değişiminde buton kontrolü
     if (learnedWords[currentType] >= initialTotalWords) {
-      document.getElementById('iKnowButtonLearn').style.visibility = 'hidden'
-      document.getElementById('repeatButtonLearn').style.visibility = 'hidden'
+      document.getElementById('iKnowButtonLearn-' + currentType).style.visibility = 'hidden'
+      document.getElementById('repeatButtonLearn-' + currentType).style.visibility = 'hidden'
     }
     if (learnedWithExerciseWords >= initialTotalWords) {
       document.getElementById('buttonDer').style.visibility = 'hidden'
@@ -1019,8 +1051,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Sayfa yüklendiğinde buton kontrolü
     if (learnedWords[currentType] >= initialTotalWords) {
-      document.getElementById('iKnowButtonLearn').style.visibility = 'hidden'
-      document.getElementById('repeatButtonLearn').style.visibility = 'hidden'
+      document.getElementById('iKnowButtonLearn-' + currentType).style.visibility = 'hidden'
+      document.getElementById('repeatButtonLearn-' + currentType).style.visibility = 'hidden'
     }
     if (learnedWithExerciseWords >= initialTotalWords) {
       document.getElementById('buttonDer').style.visibility = 'hidden'
