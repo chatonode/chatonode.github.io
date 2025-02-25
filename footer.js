@@ -28,10 +28,10 @@ let iKnowButtons
 
 Webflow.push(function () {
   console.log('Webflow tamamen yüklendi.')
-  const nounTab = document.getElementById('w-tabs-0-data-w-tab-0')
-  const verbTab = document.getElementById('w-tabs-0-data-w-tab-1')
-  const adjectiveTab = document.getElementById('w-tabs-0-data-w-tab-2')
-  const adverbTab = document.getElementById('w-tabs-0-data-w-tab-3')
+  const nounTab = document.getElementById('nounTab')
+  const verbTab = document.getElementById('verbTab')
+  const adjectiveTab = document.getElementById('adjectiveTab')
+  const adverbTab = document.getElementById('adverbTab')
 
   nounTab.addEventListener('click', function () {
     console.log('Noun seçildi.')
@@ -786,7 +786,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Sayfa değişimlerini izle
     const observer = new MutationObserver((mutations) => {
-      console.log("observer'dayım" + mutations.forEach((value) => value.addedNodes.forEach((node) => console.log("node type:" + node.nodeType))))
       // Sadece gerekli değişikliklerde event listener'ları güncelle
       const shouldUpdate = mutations.some((mutation) => {
         return Array.from(mutation.addedNodes).some(
