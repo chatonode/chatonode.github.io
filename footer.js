@@ -211,13 +211,13 @@ async function loadWords(topic) {
 
     const response = await fetch(
       currentType === 'noun'
-        ? JSON_URLS(topic)
+        ? JSON_URLS[topic]
         : currentType === 'verb'
-        ? JSON_URLS_VERB(topic)
+        ? JSON_URLS_VERB[topic]
         : // : currentType === 'adjective'
-          // ? JSON_URLS_ADJECTIVE(topic)
+          // ? JSON_URLS_ADJECTIVE[topic]
           // : currentType === 'adverb'
-          // ? JSON_URLS_ADVERB(topic)
+          // ? JSON_URLS_ADVERB[topic]
           null
     )
 
