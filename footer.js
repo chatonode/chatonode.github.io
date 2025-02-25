@@ -165,11 +165,19 @@ document.querySelectorAll('.dropdown-link').forEach((link) => {
       // Dropdown başlığını güncelle
       document.getElementById('dropdownHeader').innerText = selectedText
 
-      // Sayaçları sıfırla
-      Object.entries(learnedWords).forEach(([key, _]) => {
-        learnedWords[key] = 13
-        console.log('LEARNED WORDS NEW KEY/VALUE:' + learnedWords[key])
-      })
+      let learnedWords = {
+        noun: 0,
+        verb: 0,
+        adjective: 0,
+        adverb: 0,
+      }
+      console.log(learnedWords)
+
+      // // Sayaçları sıfırla
+      // Object.entries(learnedWords).forEach(([key, _]) => {
+      //   learnedWords[key] = 13
+      //   console.log('LEARNED WORDS NEW KEY/VALUE:' + learnedWords[key])
+      // })
 
       correctAnswerWordsCounter = 0
       localStorage.setItem('learnedWords', learnedWords)
