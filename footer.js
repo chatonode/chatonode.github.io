@@ -209,7 +209,18 @@ async function loadWords(topic) {
       feedbackMessage.innerText = ''
     }
 
-    const response = await fetch(JSON_URLS[topic])
+    const response = await fetch(
+      currentType === 'noun'
+        ? JSON_URLS(topic)
+        : currentType === 'verb'
+        ? JSON_URLS_VERB(topic)
+        : // : currentType === 'adjective'
+          // ? JSON_URLS_ADJECTIVE(topic)
+          // : currentType === 'adverb'
+          // ? JSON_URLS_ADVERB(topic)
+          null
+    )
+
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`)
     }
@@ -224,9 +235,19 @@ async function loadWords(topic) {
     shuffleArray(kelimeListesi)
     shuffleArray(kelimeListesiExercise)
 
-    // LocalStorage'daki progress listelerini temizle
-    localStorage.setItem('inProgressWords', JSON.stringify([]))
-    //localStorage.setItem("learnedWithExerciseWords", JSON.stringify([]));
+    switch (currentType) {
+      case 'noun':
+        // LocalStorage'daki progress listelerini temizle
+        localStorage.setItem('inProgressWords', JSON.stringify([]))
+        //localStorage.setItem("learnedWithExerciseWords", JSON.stringify([]));
+
+        break
+      case 'verb':
+        // LocalStorage'daki progress listelerini temizle
+        localStorage.setItem('inProgressWordsVerb', JSON.stringify([]))
+        //localStorage.setItem("learnedWithExerciseWordsVerb", JSON.stringify([]));
+        break
+    }
 
     document.getElementById('totalWordsCountLearn').innerText = totalWordsLearn
     document.getElementById('remainingWordsCountLearn').innerText = learnedWords
