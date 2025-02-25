@@ -28,7 +28,7 @@ let currentExerciseIndex = 0
 let totalWordsLearn = 0
 let totalWordsExercise = 0
 // let learnedWords = 0
-let learnedWords = {
+const learnedWords = {
   noun: 0,
   verb: 0,
   adjective: 0,
@@ -165,19 +165,11 @@ document.querySelectorAll('.dropdown-link').forEach((link) => {
       // Dropdown başlığını güncelle
       document.getElementById('dropdownHeader').innerText = selectedText
 
-      let learnedWords = {
-        noun: 0,
-        verb: 0,
-        adjective: 0,
-        adverb: 0,
-      }
-      console.log(learnedWords)
-
       // // Sayaçları sıfırla
-      // Object.entries(learnedWords).forEach(([key, _]) => {
-      //   learnedWords[key] = 13
-      //   console.log('LEARNED WORDS NEW KEY/VALUE:' + learnedWords[key])
-      // })
+      Object.entries(learnedWords).forEach(([key, _]) => {
+        learnedWords[key] = 0
+        console.log('LEARNED WORDS NEW KEY/VALUE:' + learnedWords[key])
+      })
 
       correctAnswerWordsCounter = 0
       localStorage.setItem('learnedWords', learnedWords)
@@ -188,7 +180,7 @@ document.querySelectorAll('.dropdown-link').forEach((link) => {
 
       // UI'ı güncelle
       document.getElementById('remainingWordsCountLearn').innerText =
-        learnedWords
+        learnedWords[currentType]
       document.getElementById('remainingWordsCountExercise').innerText =
         correctAnswerWordsCounter
 
@@ -217,10 +209,10 @@ async function loadWords(topic) {
     showSkeleton()
 
     // Sayaçları sıfırla
+    // learnedWords = 0
+    // localStorage.setItem('learnedWords', learnedWords)
     correctAnswerWordsCounter = 0
-    learnedWords = 0
     localStorage.setItem('correctAnswerWordsCounter', correctAnswerWordsCounter)
-    localStorage.setItem('learnedWords', learnedWords)
 
     // Feedback mesajını temizle
     const feedbackMessage = document.getElementById('feedbackMessage')
@@ -269,7 +261,7 @@ async function loadWords(topic) {
     }
 
     document.getElementById('totalWordsCountLearn').innerText = totalWordsLearn
-    document.getElementById('remainingWordsCountLearn').innerText = learnedWords
+    document.getElementById('remainingWordsCountLearn').innerText = learnedWords[currentType]
     document.getElementById('totalWordsCountExercise').innerText =
       totalWordsExercise
     document.getElementById('remainingWordsCountExercise').innerText =
@@ -330,10 +322,10 @@ function showLearnWord() {
   const { almanca, artikel, ingilizce, ornek, highlight, seviye, kural } =
     kelimeListesi[currentLearnIndex]
 
-  if (learnedWords.length > 0) {
+  if (learnedWords[currentType].length > 0) {
     kelimeListesi = kelimeListesi.filter(
       (word) =>
-        !learnedWords.some((learned) => learned.almanca === word.almanca)
+        !learnedWords[currentType].some((learned) => learned.almanca === word.almanca)
     )
   }
   const renk = artikelRenk(artikel)
@@ -712,7 +704,7 @@ function iKnowLearn() {
   if (
     !kelimeListesi.length ||
     currentLearnIndex >= kelimeListesi.length ||
-    learnedWords >= initialTotalWords
+    learnedWords[currentType] >= initialTotalWords
   ) {
     if (iKnowButtons) {
       iKnowButtons.style.visibility = 'hidden'
@@ -734,8 +726,8 @@ function iKnowLearn() {
     seviye: currentWord.seviye || 'N/A',
   })
 
-  if (learnedWords < initialTotalWords) {
-    learnedWords++
+  if (learnedWords[currentType] < initialTotalWords) {
+    learnedWords[currentType]++
     localStorage.setItem('learnedWords', learnedWords)
 
     learnedWithLearnWords.push({
@@ -750,11 +742,11 @@ function iKnowLearn() {
 
     kelimeListesi.splice(currentLearnIndex, 1)
 
-    document.getElementById('remainingWordsCountLearn').innerText = learnedWords
+    document.getElementById('remainingWordsCountLearn').innerText = learnedWords[currentType]
     document.getElementById('totalWordsCountLearn').innerText =
       initialTotalWords
 
-    if (learnedWords >= initialTotalWords) {
+    if (learnedWords[currentType] >= initialTotalWords) {
       showModal('You learned all words! 🎉')
       if (iKnowButtons) {
         iKnowButtons.style.visibility = 'hidden'
@@ -990,7 +982,7 @@ function navigateToPage(pageId) {
     hideSkeleton()
 
     // Sayfa değişiminde buton kontrolü
-    if (learnedWords >= initialTotalWords) {
+    if (learnedWords[currentType] >= initialTotalWords) {
       document.getElementById('iKnowButtonLearn').style.visibility = 'hidden'
       document.getElementById('repeatButtonLearn').style.visibility = 'hidden'
     }
@@ -1013,7 +1005,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     showExerciseWord()
 
     // Sayfa yüklendiğinde buton kontrolü
-    if (learnedWords >= initialTotalWords) {
+    if (learnedWords[currentType] >= initialTotalWords) {
       document.getElementById('iKnowButtonLearn').style.visibility = 'hidden'
       document.getElementById('repeatButtonLearn').style.visibility = 'hidden'
     }
