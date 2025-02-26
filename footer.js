@@ -68,6 +68,14 @@ let initialTotalWords = 0 // Yeni eklenen değişken
 let repeatButtons
 let iKnowButtons
 
+function executeInitialLoadAndShow() {
+  const lastSelectedTopic = localStorage.getItem('lastSelectedTopic')
+  loadWords(lastSelectedTopic)
+  console.log(currentType + 's ARE LOADED')
+  showLearnWord()
+  showExerciseWord()
+}
+
 Webflow.push(function () {
   console.log('Webflow tamamen yüklendi.')
   const nounTab = document.getElementById('nounTab')
@@ -79,6 +87,8 @@ Webflow.push(function () {
     console.log('Noun seçildi.')
     updateType(types[0])
     console.log(currentType)
+
+    executeInitialLoadAndShow()
   })
 
   verbTab.addEventListener('click', function () {
@@ -86,21 +96,23 @@ Webflow.push(function () {
     updateType(types[1])
     console.log(currentType)
 
-    const lastSelectedTopic = localStorage.getItem('lastSelectedTopic')
-    loadWords(lastSelectedTopic)
-    console.log('VERBS ARE LOADED')
+    executeInitialLoadAndShow()
   })
 
   adjectiveTab.addEventListener('click', function () {
     console.log('Adjective seçildi.')
     updateType(types[2])
     console.log(currentType)
+
+    executeInitialLoadAndShow()
   })
 
   adverbTab.addEventListener('click', function () {
     console.log('Adverb seçildi.')
     updateType(types[3])
     console.log(currentType)
+    
+    executeInitialLoadAndShow()
   })
 })
 
