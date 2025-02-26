@@ -71,6 +71,11 @@ Webflow.push(function () {
     console.log('Verb seçildi.')
     updateType(types[1])
     console.log(currentType)
+    
+    const lastSelectedTopic = localStorage.getItem('lastSelectedTopic')
+    loadWords(lastSelectedTopic)
+    console.log('VERBS ARE LOADED')
+
   })
 
   adjectiveTab.addEventListener('click', function () {
