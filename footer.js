@@ -17,6 +17,20 @@ const JSON_URLS_VERB = {
   b1telcpt4: 'https://chatonode.github.io/verb.json',
 }
 
+const JSON_URLS_ADJECTIVE = {
+  b1telcpt1: 'https://chatonode.github.io/adjective.json',
+  b1telcpt2: 'https://chatonode.github.io/adjective.json',
+  b1telcpt3: 'https://chatonode.github.io/adjective.json',
+  b1telcpt4: 'https://chatonode.github.io/adjective.json',
+}
+
+const JSON_URLS_ADVERB = {
+  b1telcpt1: 'https://chatonode.github.io/adverb.json',
+  b1telcpt2: 'https://chatonode.github.io/adverb.json',
+  b1telcpt3: 'https://chatonode.github.io/adverb.json',
+  b1telcpt4: 'https://chatonode.github.io/adverb.json',
+}
+
 let learnedWithLearnWords = {
   noun: [],
   verb: [],
@@ -267,11 +281,11 @@ async function loadWords(topic) {
         ? JSON_URLS[topic]
         : currentType === 'verb'
         ? JSON_URLS_VERB[topic]
-        : // : currentType === 'adjective'
-          // ? JSON_URLS_ADJECTIVE[topic]
-          // : currentType === 'adverb'
-          // ? JSON_URLS_ADVERB[topic]
-          null
+        : currentType === 'adjective'
+        ? JSON_URLS_ADJECTIVE[topic]
+        : currentType === 'adverb'
+        ? JSON_URLS_ADVERB[topic]
+        : null
     )
 
     if (!response.ok) {
