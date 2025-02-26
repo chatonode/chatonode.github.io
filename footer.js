@@ -748,12 +748,12 @@ function iKnowLearn() {
     return
   }
 
-  let learnedWithLearnWords =
-    JSON.parse(localStorage.getItem('learnedWithLearnWords')) || []
+  learnedWithLearnWords =
+    JSON.parse(localStorage.getItem('learnedWithLearnWords')) || learnedWithLearnWords
   const currentWord = kelimeListesi[currentLearnIndex]
 
   // Kelimeyi öğrenilenlere ekle
-  learnedWithLearnWords.push({
+  learnedWithLearnWords[currentType].push({
     almanca: currentWord.almanca,
     ingilizce: currentWord.ingilizce,
     seviye: currentWord.seviye || 'N/A',
@@ -763,7 +763,7 @@ function iKnowLearn() {
     learnedWords[currentType]++
     localStorage.setItem('learnedWords', JSON.stringify(learnedWords))
 
-    learnedWithLearnWords.push({
+    learnedWithLearnWords[currentType].push({
       almanca: currentWord.almanca,
       ingilizce: currentWord.ingilizce,
       seviye: currentWord.seviye || 'N/A',
