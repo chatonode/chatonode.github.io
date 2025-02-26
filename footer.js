@@ -357,8 +357,10 @@ function showLearnWord() {
       document.getElementById(
         'wordLearn-' + currentType
       ).innerHTML = `<span style="color: ${renk};">${highlightedWord}</span>`
+      break
     case 'verb':
       document.getElementById('wordLearn-' + currentType).innerHTML = almanca
+      break
   }
 
   document.getElementById('levelTagLearn').innerText =
