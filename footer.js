@@ -18,10 +18,10 @@ const JSON_URLS_VERB = {
 }
 
 let learnedWithLearnWords = {
-  'noun': [],
-  'verb': [],
-  'adjective': [],
-  'adverb': [],
+  noun: [],
+  verb: [],
+  adjective: [],
+  adverb: [],
 }
 
 // Global variables
@@ -71,11 +71,10 @@ Webflow.push(function () {
     console.log('Verb seçildi.')
     updateType(types[1])
     console.log(currentType)
-    
+
     const lastSelectedTopic = localStorage.getItem('lastSelectedTopic')
     loadWords(lastSelectedTopic)
     console.log('VERBS ARE LOADED')
-
   })
 
   adjectiveTab.addEventListener('click', function () {
@@ -696,7 +695,10 @@ function checkAnswer(userArtikel) {
   console.log(
     `'${kelimeListesiExercise.length}' liste uzunlugu bu sayiya güncellendi.`
   )
-  localStorage.setItem('inProgressWords-' + currentType, JSON.stringify(inProgressWords))
+  localStorage.setItem(
+    'inProgressWords-' + currentType,
+    JSON.stringify(inProgressWords)
+  )
 }
 
 document
@@ -754,7 +756,8 @@ function iKnowLearn() {
   }
 
   learnedWithLearnWords =
-    JSON.parse(localStorage.getItem('learnedWithLearnWords')) || learnedWithLearnWords
+    JSON.parse(localStorage.getItem('learnedWithLearnWords')) ||
+    learnedWithLearnWords
   const currentWord = kelimeListesi[currentLearnIndex]
 
   // Kelimeyi öğrenilenlere ekle
@@ -1050,8 +1053,18 @@ document.addEventListener('DOMContentLoaded', async () => {
   showSkeleton()
 
   try {
-    const lastSelectedTopic =
-      localStorage.getItem('lastSelectedTopic') || 'b1telcpt1'
+    
+    let lastSelectedTopic
+    if (localStorage.getItem() === undefined) {
+      lastSelectedTopic = 'b1telcpt1'
+      lastSelectedTopic = localStorage.setItem(
+        'lastSelectedTopic',
+        lastSelectedTopic
+      )
+    } else {
+      lastSelectedTopic = localStorage.getItem('lastSelectedTopic')
+    }
+
     await loadWords(lastSelectedTopic)
     showLearnWord()
     showExerciseWord()
