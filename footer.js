@@ -515,7 +515,9 @@ function showExerciseWord() {
   document.getElementById('feedbackMessage-' + currentType).innerText = ''
 }
 
-function checkAnswer(userArtikel) {
+
+
+function checkNounAnswer(userArtikel) {
   // Eğer liste boşsa veya index liste dışındaysa, işlemi durdur
   if (
     !kelimeListesiExercise.length ||
@@ -733,21 +735,21 @@ document
   .getElementById('buttonDer')
   .addEventListener('click', function (event) {
     event.preventDefault() // Sayfanın yukarı kaymasını engeller
-    checkAnswer('der')
+    checkNounAnswer('der')
   })
 
 document
   .getElementById('buttonDie')
   .addEventListener('click', function (event) {
     event.preventDefault()
-    checkAnswer('die')
+    checkNounAnswer('die')
   })
 
 document
   .getElementById('buttonDas')
   .addEventListener('click', function (event) {
     event.preventDefault()
-    checkAnswer('das')
+    checkNounAnswer('das')
   })
 
 // Learn functionality buttons
@@ -1132,17 +1134,17 @@ function resetExerciseButtons() {
     // **Yeni event listener'ları ekleyelim**
     newButtonDer.addEventListener('click', function (event) {
       event.preventDefault()
-      checkAnswer('der')
+      checkNounAnswer('der')
     })
 
     newButtonDie.addEventListener('click', function (event) {
       event.preventDefault()
-      checkAnswer('die')
+      checkNounAnswer('die')
     })
 
     newButtonDas.addEventListener('click', function (event) {
       event.preventDefault()
-      checkAnswer('das')
+      checkNounAnswer('das')
     })
 
     console.log('🔥 Der, Die, Das butonları tekrar aktif hale getirildi.')
