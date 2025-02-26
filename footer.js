@@ -1011,42 +1011,42 @@ document
   })
 
 document
-  .getElementById('buttonWrong-verb')
+  .getElementById('wrongButton-verb')
   .addEventListener('click', function (event) {
     event.preventDefault() // Sayfanın yukarı kaymasını engeller
     checkNonNounAnswer(false)
   })
 
 document
-  .getElementById('buttonCorrect-verb')
+  .getElementById('correctButton-verb')
   .addEventListener('click', function (event) {
     event.preventDefault()
     checkNonNounAnswer(true)
   })
 
 document
-  .getElementById('buttonWrong-adjective')
+  .getElementById('wrongButton-adjective')
   .addEventListener('click', function (event) {
     event.preventDefault() // Sayfanın yukarı kaymasını engeller
     checkNonNounAnswer(false)
   })
 
 document
-  .getElementById('buttonCorrect-adjective')
+  .getElementById('correctButton-adjective')
   .addEventListener('click', function (event) {
     event.preventDefault()
     checkNonNounAnswer(true)
   })
 
 document
-  .getElementById('buttonWrong-adverb')
+  .getElementById('wrongButton-adverb')
   .addEventListener('click', function (event) {
     event.preventDefault() // Sayfanın yukarı kaymasını engeller
     checkNonNounAnswer(false)
   })
 
 document
-  .getElementById('buttonCorrect-adverb')
+  .getElementById('correctButton-adverb')
   .addEventListener('click', function (event) {
     event.preventDefault()
     checkNonNounAnswer(true)
