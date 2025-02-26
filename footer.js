@@ -1051,16 +1051,11 @@ function navigateToPage(pageId) {
 
 document.addEventListener('DOMContentLoaded', async () => {
   showSkeleton()
+  localStorage.clear()
 
   try {
-    let lastSelectedTopic
-    if (localStorage.getItem('lastSelectedTopic') === undefined) {
-      lastSelectedTopic = 'b1telcpt1'
-      localStorage.setItem('lastSelectedTopic', lastSelectedTopic)
-    } else {
-      lastSelectedTopic = localStorage.getItem('lastSelectedTopic')
-    }
-
+    const lastSelectedTopic = 'b1telcpt1'
+    localStorage.setItem('lastSelectedTopic', lastSelectedTopic)
     await loadWords(lastSelectedTopic)
     showLearnWord()
     showExerciseWord()
