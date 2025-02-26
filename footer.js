@@ -436,7 +436,7 @@ function getRandomNumber(max) {
   return Math.floor(Math.random() * (max + 1))
 }
 
-function diceRoller() {
+function decideWrongOrCorrect() {
   // Math.random() returns a number between 0 (inclusive) and 1 (exclusive).
   // If the number is less than 0.6, that's a 60% chance.
   return Math.random() < 0.6
@@ -538,7 +538,7 @@ function showExerciseWord() {
       currentType === 'noun'
         ? ingilizce // İngilizce çeviriyi göster
         : // else
-        diceRoller() // true - false
+        decideWrongOrCorrect() // true - false
         ? ingilizce
         : getRandomTranslationResult(currentWord)
   } else {
