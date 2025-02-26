@@ -449,9 +449,11 @@ function getRandomTranslationResult({ almanca }) {
     }
   )
 
-  const randomIndex = getRandomNumber(filteredKelimeListesiExercise.length)
+  const randomIndex = getRandomNumber(filteredKelimeListesiExercise.length - 1)
 
-  const randomResult = filteredKelimeListesiExercise[randomIndex].ingilizce
+  console.log(filteredKelimeListesiExercise[randomIndex])
+
+  const randomResult = filteredKelimeListesiExercise[randomIndex]["ingilizce"]
 
   return randomResult
 }
