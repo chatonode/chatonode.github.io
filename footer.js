@@ -333,10 +333,10 @@ function showLearnWord() {
   const { almanca, ingilizce, ornek, highlight, seviye, kural } =
     kelimeListesi[currentLearnIndex]
 
-  if (learnedWords[currentType].length > 0) {
+  if (learnedWithLearnWords[currentType].length > 0) {
     kelimeListesi = kelimeListesi.filter(
       (word) =>
-        !learnedWords[currentType].some(
+        !learnedWithLearnWords[currentType].some(
           (learned) => learned.almanca === word.almanca
         )
     )
