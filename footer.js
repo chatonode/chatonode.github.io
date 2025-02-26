@@ -68,9 +68,9 @@ let initialTotalWords = 0 // Yeni eklenen değişken
 let repeatButtons
 let iKnowButtons
 
-function executeInitialLoadAndShow() {
+async function executeInitialLoadAndShow() {
   const lastSelectedTopic = localStorage.getItem('lastSelectedTopic')
-  loadWords(lastSelectedTopic)
+  await loadWords(lastSelectedTopic)
   console.log(currentType + 's ARE LOADED')
   showLearnWord()
   showExerciseWord()
