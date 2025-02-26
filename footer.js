@@ -17,6 +17,8 @@ const JSON_URLS_VERB = {
   b1telcpt4: 'https://chatonode.github.io/verb.json',
 }
 
+let learnedWithLearnWords = []
+
 // Global variables
 let currentType = 'noun'
 const types = ['noun', 'verb', 'adjective', 'adverb']
