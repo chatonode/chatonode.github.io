@@ -442,18 +442,25 @@ function decideWrongOrCorrect() {
   return Math.random() < 0.6
 }
 
-function getRandomTranslationResult({ almanca }) {
+function getRandomTranslationResult(selectedWord) {
+  console.log(kelimeListesiExercise)
+  console.log(selectedWord)
+
   const filteredKelimeListesiExercise = kelimeListesiExercise.filter(
     (kelimeExercise) => {
-      kelimeExercise.almanca !== almanca
+      kelimeExercise.almanca !== selectedWord.almanca
     }
   )
 
-  const randomIndex = getRandomNumber(filteredKelimeListesiExercise.length - 1)
+  console.log(filteredKelimeListesiExercise)
+
+  const randomIndex = getRandomNumber(filteredKelimeListesiExercise.length)
 
   console.log(filteredKelimeListesiExercise[randomIndex])
 
   const randomResult = filteredKelimeListesiExercise[randomIndex]["ingilizce"]
+
+  console.log(randomResult)
 
   return randomResult
 }
