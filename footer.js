@@ -587,8 +587,8 @@ function checkNonNounAnswer(userInput) {
     return
   }
 
-  const { almanca, ingilizce, kural } =
-    kelimeListesiExercise[currentExerciseIndex]
+  const currentWord = kelimeListesiExercise[currentExerciseIndex]
+  const { almanca, ingilizce, kural } = currentWord
   const buttonWrong = document.getElementById('wrongButton-' + currentType)
   const buttonCorrect = document.getElementById('correctButton-' + currentType)
 
