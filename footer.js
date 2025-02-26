@@ -123,7 +123,7 @@ function hideSkeleton() {
 // Learn elements visibility
 function hideLearnElements() {
   const elementIds = [
-    'addToFavoritesLearn-' + currentType,
+    'addToFavoritesLearn',
     'wordLearn-' + currentType,
     'translationLearn-' + currentType,
     'ruleLearn-' + currentType,
@@ -141,7 +141,7 @@ function hideLearnElements() {
 
 function showLearnElements() {
   const elementIds = [
-    'addToFavoritesLearn-' + currentType,
+    'addToFavoritesLearn',
     'wordLearn-' + currentType,
     'translationLearn-' + currentType,
     'ruleLearn-' + currentType,
