@@ -1053,14 +1053,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   showSkeleton()
 
   try {
-
     let lastSelectedTopic
     if (localStorage.getItem('lastSelectedTopic') === undefined) {
       lastSelectedTopic = 'b1telcpt1'
-      lastSelectedTopic = localStorage.setItem(
-        'lastSelectedTopic',
-        lastSelectedTopic
-      )
+      localStorage.setItem('lastSelectedTopic', lastSelectedTopic)
     } else {
       lastSelectedTopic = localStorage.getItem('lastSelectedTopic')
     }
