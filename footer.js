@@ -31,6 +31,13 @@ let learnedWithExerciseWords = {
   adverb: [],
 }
 
+let inProgressWords = {
+  noun: [],
+  verb: [],
+  adjective: [],
+  adverb: [],
+}
+
 // Global variables
 let currentType = 'noun'
 const types = ['noun', 'verb', 'adjective', 'adverb']
@@ -270,7 +277,7 @@ async function loadWords(topic) {
     shuffleArray(kelimeListesiExercise)
 
     // LocalStorage'daki progress listelerini temizle
-    localStorage.setItem('inProgressWords-' + currentType, JSON.stringify([]))
+    localStorage.setItem('inProgressWords', JSON.stringify(inProgressWords))
     //localStorage.setItem("learnedWithExerciseWords", JSON.stringify([]));
 
     document.getElementById(
@@ -411,11 +418,12 @@ function showExerciseWord() {
     currentExerciseIndex = 0
   }
 
-  let inProgressWords =
-    JSON.parse(localStorage.getItem('inProgressWords-' + currentType)) || []
+  inProgressWords =
+    JSON.parse(localStorage.getItem('inProgressWords')) || inProgressWords
 
   learnedWithExerciseWords =
-    JSON.parse(localStorage.getItem('learnedWithExerciseWords')) || learnedWithExerciseWords
+    JSON.parse(localStorage.getItem('learnedWithExerciseWords')) ||
+    learnedWithExerciseWords
 
   // 🟢 `kelimeListesi` içinden `learnedWords`'de olanları çıkar
   if (learnedWithExerciseWords[currentType].length > 0) {
@@ -450,7 +458,7 @@ function showExerciseWord() {
   }
 
   const currentWord = kelimeListesiExercise[currentExerciseIndex]
-  const progressWord = inProgressWords.find(
+  const progressWord = inProgressWords[currentType].find(
     (item) => item.almanca === currentWord.almanca
   )
 
@@ -514,14 +522,15 @@ function checkAnswer(userArtikel) {
   console.log(
     `'${kelimeListesiExercise.length}' kelime listesi uzunlugu böyleydi.`
   )
-  let inProgressWords =
-    JSON.parse(localStorage.getItem('inProgressWords-' + currentType)) || []
+  inProgressWords =
+    JSON.parse(localStorage.getItem('inProgressWords')) || inProgressWords
   learnedWithExerciseWords =
-    JSON.parse(localStorage.getItem('learnedWithExerciseWords')) || learnedWithExerciseWords
+    JSON.parse(localStorage.getItem('learnedWithExerciseWords')) ||
+    learnedWithExerciseWords
 
   const currentWord = kelimeListesiExercise[currentExerciseIndex]
 
-  const inProgressIndex = inProgressWords.findIndex(
+  const inProgressIndex = inProgressWords[currentType].findIndex(
     (item) => item.almanca === currentWord.almanca
   )
 
@@ -547,7 +556,10 @@ function checkAnswer(userArtikel) {
       playSound(
         'https://github.com/heroofdarkroom/proje/raw/refs/heads/master/correct.mp3'
       )
-      inProgressWords.push({ almanca: currentWord.almanca, counter: 1 })
+      inProgressWords[currentType].push({
+        almanca: currentWord.almanca,
+        counter: 1,
+      })
       document.getElementById('progressLeft-' + currentType).style.opacity = '1'
 
       // Liste manipülasyonlarından sonra index kontrolü
@@ -567,13 +579,13 @@ function checkAnswer(userArtikel) {
         currentExerciseIndex = 0
       }
     } else {
-      inProgressWords[inProgressIndex].counter += 1
-      if (inProgressWords[inProgressIndex].counter === 2) {
+      inProgressWords[currentType][inProgressIndex].counter += 1
+      if (inProgressWords[currentType][inProgressIndex].counter === 2) {
         document.getElementById('progressMiddle-' + currentType).style.opacity =
           '1'
       }
       //3 kere bilindiyse learnede ekle
-      if (inProgressWords[inProgressIndex].counter >= 3) {
+      if (inProgressWords[currentType][inProgressIndex].counter >= 3) {
         playSound(
           'https://github.com/heroofdarkroom/proje/raw/refs/heads/master/streak.mp3'
         )
@@ -584,7 +596,7 @@ function checkAnswer(userArtikel) {
           seviye: currentWord.seviye || 'N/A',
         })
 
-        if (inProgressWords[inProgressIndex].counter === 3) {
+        if (inProgressWords[currentType][inProgressIndex].counter === 3) {
           document.getElementById(
             'feedbackMessage-' + currentType
           ).innerText = `This word: ${currentWord.almanca} added to learned list!🏆`
@@ -614,7 +626,7 @@ function checkAnswer(userArtikel) {
           'https://github.com/heroofdarkroom/proje/raw/refs/heads/master/correct.mp3'
         )
         kelimeListesiExercise.splice(currentExerciseIndex, 1)
-        if (inProgressWords[inProgressIndex].counter === 1) {
+        if (inProgressWords[currentType][inProgressIndex].counter === 1) {
           kelimeListesiExercise.splice(
             currentExerciseIndex + 8,
             0,
@@ -659,7 +671,7 @@ function checkAnswer(userArtikel) {
         kelimeListesiExercise.push(currentWord)
       }
 
-      inProgressWords[inProgressIndex].counter = 0
+      inProgressWords[currentType][inProgressIndex].counter = 0
       document.getElementById('progressRight-' + currentType).style.opacity =
         '0.5'
       document.getElementById('progressMiddle-' + currentType).style.opacity =
@@ -702,10 +714,7 @@ function checkAnswer(userArtikel) {
   console.log(
     `'${kelimeListesiExercise.length}' liste uzunlugu bu sayiya güncellendi.`
   )
-  localStorage.setItem(
-    'inProgressWords-' + currentType,
-    JSON.stringify(inProgressWords)
-  )
+  localStorage.setItem('inProgressWords', JSON.stringify(inProgressWords))
 }
 
 document
@@ -1076,7 +1085,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         'repeatButtonLearn-' + currentType
       ).style.visibility = 'hidden'
     }
-    if (learnedWithExerciseWords >= initialTotalWords) {
+    if (learnedWithExerciseWords[currentType] >= initialTotalWords) {
       document.getElementById('buttonDer').style.visibility = 'hidden'
       document.getElementById('buttonDie').style.visibility = 'hidden'
       document.getElementById('buttonDas').style.visibility = 'hidden'
