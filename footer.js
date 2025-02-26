@@ -251,19 +251,9 @@ async function loadWords(topic) {
     shuffleArray(kelimeListesi)
     shuffleArray(kelimeListesiExercise)
 
-    switch (currentType) {
-      case 'noun':
-        // LocalStorage'daki progress listelerini temizle
-        localStorage.setItem('inProgressWords', JSON.stringify([]))
-        //localStorage.setItem("learnedWithExerciseWords", JSON.stringify([]));
-
-        break
-      case 'verb':
-        // LocalStorage'daki progress listelerini temizle
-        localStorage.setItem('inProgressWordsVerb', JSON.stringify([]))
-        //localStorage.setItem("learnedWithExerciseWordsVerb", JSON.stringify([]));
-        break
-    }
+    // LocalStorage'daki progress listelerini temizle
+    localStorage.setItem('inProgressWords-' + currentType, JSON.stringify([]))
+    //localStorage.setItem("learnedWithExerciseWords", JSON.stringify([]));
 
     document.getElementById(
       'remainingWordsCountLearn-' + currentType
@@ -363,8 +353,7 @@ function showLearnWord() {
       break
   }
 
-  document.getElementById('levelTagLearn').innerText =
-    seviye || 'N/A'
+  document.getElementById('levelTagLearn').innerText = seviye || 'N/A'
   document.getElementById('translationLearn-' + currentType).innerText =
     ingilizce || 'N/A'
   document.getElementById('exampleLearn-' + currentType).innerText =
@@ -405,7 +394,7 @@ function showExerciseWord() {
   }
 
   let inProgressWords =
-    JSON.parse(localStorage.getItem('inProgressWords')) || []
+    JSON.parse(localStorage.getItem('inProgressWords-' + currentType)) || []
 
   learnedWithExerciseWords =
     JSON.parse(localStorage.getItem('learnedWithExerciseWords')) || []
@@ -453,8 +442,7 @@ function showExerciseWord() {
 
   // Kelimenin Almanca kısmını göster
   document.getElementById('exerciseWord-' + currentType).innerText = kelime
-  document.getElementById('levelTagExercise').innerText =
-    seviye || 'N/A'
+  document.getElementById('levelTagExercise').innerText = seviye || 'N/A'
 
   // İngilizce çeviriyi göster (ID üzerinden erişim)
   const exerciseTranslationElement = document.getElementById(
@@ -509,7 +497,7 @@ function checkAnswer(userArtikel) {
     `'${kelimeListesiExercise.length}' kelime listesi uzunlugu böyleydi.`
   )
   let inProgressWords =
-    JSON.parse(localStorage.getItem('inProgressWords')) || []
+    JSON.parse(localStorage.getItem('inProgressWords-' + currentType)) || []
   let learnedWithExerciseWords =
     JSON.parse(localStorage.getItem('learnedWithExerciseWords')) || []
 
@@ -696,7 +684,7 @@ function checkAnswer(userArtikel) {
   console.log(
     `'${kelimeListesiExercise.length}' liste uzunlugu bu sayiya güncellendi.`
   )
-  localStorage.setItem('inProgressWords', JSON.stringify(inProgressWords))
+  localStorage.setItem('inProgressWords-' + currentType, JSON.stringify(inProgressWords))
 }
 
 document
@@ -917,8 +905,9 @@ function updateExerciseCounter() {
     JSON.stringify(correctAnswerWordsCounter)
   )
 
-  document.getElementById('remainingWordsCountExercise-' + currentType).innerText =
-    correctAnswerWordsCounter[currentType]
+  document.getElementById(
+    'remainingWordsCountExercise-' + currentType
+  ).innerText = correctAnswerWordsCounter[currentType]
   document.getElementById('totalWordsCountExercise-' + currentType).innerText =
     initialTotalWords
 
@@ -1030,8 +1019,12 @@ function navigateToPage(pageId) {
 
     // Sayfa değişiminde buton kontrolü
     if (learnedWords[currentType] >= initialTotalWords) {
-      document.getElementById('iKnowButtonLearn-' + currentType).style.visibility = 'hidden'
-      document.getElementById('repeatButtonLearn-' + currentType).style.visibility = 'hidden'
+      document.getElementById(
+        'iKnowButtonLearn-' + currentType
+      ).style.visibility = 'hidden'
+      document.getElementById(
+        'repeatButtonLearn-' + currentType
+      ).style.visibility = 'hidden'
     }
     if (learnedWithExerciseWords >= initialTotalWords) {
       document.getElementById('buttonDer').style.visibility = 'hidden'
@@ -1053,8 +1046,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Sayfa yüklendiğinde buton kontrolü
     if (learnedWords[currentType] >= initialTotalWords) {
-      document.getElementById('iKnowButtonLearn-' + currentType).style.visibility = 'hidden'
-      document.getElementById('repeatButtonLearn-' + currentType).style.visibility = 'hidden'
+      document.getElementById(
+        'iKnowButtonLearn-' + currentType
+      ).style.visibility = 'hidden'
+      document.getElementById(
+        'repeatButtonLearn-' + currentType
+      ).style.visibility = 'hidden'
     }
     if (learnedWithExerciseWords >= initialTotalWords) {
       document.getElementById('buttonDer').style.visibility = 'hidden'
