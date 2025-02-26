@@ -111,7 +111,7 @@ Webflow.push(function () {
     console.log('Adverb seçildi.')
     updateType(types[3])
     console.log(currentType)
-    
+
     executeInitialLoadAndShow()
   })
 })
@@ -416,6 +416,35 @@ function showLearnWord() {
   updateFavoriteIcons()
 }
 
+function getRandomNumber(max) {
+  // Ensure max is a non-negative number
+  if (typeof max !== 'number' || max < 0) {
+    throw new Error("The 'max' parameter must be a non-negative number.")
+  }
+  // Returns a random integer between 0 and max (inclusive)
+  return Math.floor(Math.random() * (max + 1))
+}
+
+function diceRoller() {
+  // Math.random() returns a number between 0 (inclusive) and 1 (exclusive).
+  // If the number is less than 0.6, that's a 60% chance.
+  return Math.random() < 0.6
+}
+
+function getRandomTranslationResult({ almanca }) {
+  const filteredKelimeListesiExercise = kelimeListesiExercise.filter(
+    (kelimeExercise) => {
+      kelimeExercise.almanca !== almanca
+    }
+  )
+
+  const randomIndex = getRandomNumber(filteredKelimeListesiExercise.length)
+
+  const randomResult = filteredKelimeListesiExercise[randomIndex].ingilizce
+
+  return randomResult
+}
+
 function showExerciseWord() {
   if (!kelimeListesiExercise.length) {
     // Liste boşsa UI'ı temizle
@@ -461,9 +490,16 @@ function showExerciseWord() {
     document.getElementById('exampleLearn-' + currentType).innerText =
       'You learned all of the words, go to exercise section.'
 
-    buttonDer.style.visibility = 'hidden'
-    buttonDie.style.visibility = 'hidden'
-    buttonDas.style.visibility = 'hidden'
+    if (currentType === 'noun') {
+      buttonDer.style.visibility = 'hidden'
+      buttonDie.style.visibility = 'hidden'
+      buttonDas.style.visibility = 'hidden'
+    } else {
+      // todo
+      // buttonWrong.style.visibility = 'hidden'
+      // buttonCorrect.style.visibility = 'hidden'
+    }
+
     document.getElementById(
       'feedbackMessage-' + currentType
     ).innerText = `You completed all exercise words! 🎉`
@@ -474,9 +510,9 @@ function showExerciseWord() {
     (item) => item.almanca === currentWord.almanca
   )
 
-  const { kelime, artikel, ingilizce, seviye } =
+  const { kelime, ingilizce, seviye } =
     kelimeListesiExercise[currentExerciseIndex]
-  const renk = artikelRenk(artikel)
+  // const renk = artikelRenk(artikel)
 
   // Kelimenin Almanca kısmını göster
   document.getElementById('exerciseWord-' + currentType).innerText = kelime
@@ -487,7 +523,13 @@ function showExerciseWord() {
     'exerciseTranslation-' + currentType
   )
   if (exerciseTranslationElement) {
-    exerciseTranslationElement.innerText = ingilizce // İngilizce çeviriyi göster
+    exerciseTranslationElement.innerText =
+      currentType === 'noun'
+        ? ingilizce // İngilizce çeviriyi göster
+        : // else
+        diceRoller() // true - false
+        ? ingilizce
+        : getRandomTranslationResult(currentWord)
   } else {
     console.error('exerciseTranslation ID not found!')
   }
@@ -510,12 +552,47 @@ function showExerciseWord() {
   }
 
   // Default olarak boş bırakılan artikel alanı
-  document.getElementById('correctAnswerField').innerHTML = '___'
+  if (currentType === 'noun') {
+    document.getElementById('correctAnswerField').innerHTML = '___'
+  }
 
   document.getElementById('feedbackMessage-' + currentType).innerText = ''
 }
 
+function checkNonNounAnswer(userInput) {
+  // Eğer liste boşsa veya index liste dışındaysa, işlemi durdur
+  if (
+    !kelimeListesiExercise.length ||
+    currentExerciseIndex >= kelimeListesiExercise.length
+  ) {
+    currentExerciseIndex = 0
+    return
+  }
 
+  const { almanca, ingilizce, kural, kelime } =
+    kelimeListesiExercise[currentExerciseIndex]
+  const buttonWrong = document.getElementById('wrongButton-' + currentType)
+  const buttonCorrect = document.getElementById('correctButton-' + currentType)
+
+  inProgressWords = JSON.parse(localStorage.getItem('inProgressWords'))
+  learnedWithExerciseWords =
+    JSON.parse(localStorage.getItem('learnedWithExerciseWords')) ||
+    learnedWithExerciseWords
+
+  const inProgressIndex = inProgressWords[currentType].findIndex(
+    (item) => item.almanca === almanca
+  )
+
+  buttonWrong.style.visibility = 'hidden'
+  buttonCorrect.style.visibility = 'hidden'
+
+  if (userInput) {
+    document.getElementById('feedbackMessage-' + currentType).innerText =
+      'Correct! 🎉'
+    document.getElementById('feedbackMessage-' + currentType).style.color =
+      'green'
+  }
+}
 
 function checkNounAnswer(userArtikel) {
   // Eğer liste boşsa veya index liste dışındaysa, işlemi durdur
@@ -527,7 +604,8 @@ function checkNounAnswer(userArtikel) {
     return
   }
 
-  const { artikel, kural, kelime } = kelimeListesiExercise[currentExerciseIndex]
+  const currentWord = kelimeListesiExercise[currentExerciseIndex]
+  const { artikel, kural, kelime } = currentWord
   var buttonDer = document.getElementById('buttonDer')
   var buttonDie = document.getElementById('buttonDie')
   var buttonDas = document.getElementById('buttonDas')
@@ -536,13 +614,10 @@ function checkNounAnswer(userArtikel) {
   console.log(
     `'${kelimeListesiExercise.length}' kelime listesi uzunlugu böyleydi.`
   )
-  inProgressWords =
-    JSON.parse(localStorage.getItem('inProgressWords')) || inProgressWords
+  inProgressWords = JSON.parse(localStorage.getItem('inProgressWords'))
   learnedWithExerciseWords =
     JSON.parse(localStorage.getItem('learnedWithExerciseWords')) ||
     learnedWithExerciseWords
-
-  const currentWord = kelimeListesiExercise[currentExerciseIndex]
 
   const inProgressIndex = inProgressWords[currentType].findIndex(
     (item) => item.almanca === currentWord.almanca
