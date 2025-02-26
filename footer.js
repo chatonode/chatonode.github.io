@@ -17,11 +17,11 @@ const JSON_URLS_VERB = {
   b1telcpt4: 'https://chatonode.github.io/verb.json',
 }
 
-const LEARNED_WITH_LEARN_WORDS_INITIAL = {
-  noun: [],
-  verb: [],
-  adjective: [],
-  adverb: [],
+let learnedWithLearnWords = {
+  'noun': [],
+  'verb': [],
+  'adjective': [],
+  'adverb': [],
 }
 
 // Global variables
@@ -691,10 +691,7 @@ function checkAnswer(userArtikel) {
   console.log(
     `'${kelimeListesiExercise.length}' liste uzunlugu bu sayiya güncellendi.`
   )
-  localStorage.setItem(
-    'inProgressWords-' + currentType,
-    JSON.stringify(inProgressWords)
-  )
+  localStorage.setItem('inProgressWords-' + currentType, JSON.stringify(inProgressWords))
 }
 
 document
@@ -751,7 +748,7 @@ function iKnowLearn() {
     return
   }
 
-  learnedWithLearnWords =
+  let learnedWithLearnWords =
     JSON.parse(localStorage.getItem('learnedWithLearnWords')) || []
   const currentWord = kelimeListesi[currentLearnIndex]
 
@@ -1044,14 +1041,6 @@ function navigateToPage(pageId) {
   }, 500)
 }
 
-function setInitialLocalStorageItems() {
-  localStorage.setItem(
-    'learnedWithLearnWords',
-    JSON.stringify(LEARNED_WITH_LEARN_WORDS_INITIAL)
-  )
-
-}
-
 document.addEventListener('DOMContentLoaded', async () => {
   showSkeleton()
 
@@ -1059,7 +1048,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     const lastSelectedTopic =
       localStorage.getItem('lastSelectedTopic') || 'b1telcpt1'
     await loadWords(lastSelectedTopic)
-    setInitialLocalStorageItems()
     showLearnWord()
     showExerciseWord()
 
