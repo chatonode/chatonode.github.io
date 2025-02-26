@@ -587,7 +587,7 @@ function checkNonNounAnswer(userInput) {
     return
   }
 
-  const { almanca, ingilizce, kural, kelime } =
+  const { almanca, ingilizce, kural } =
     kelimeListesiExercise[currentExerciseIndex]
   const buttonWrong = document.getElementById('wrongButton-' + currentType)
   const buttonCorrect = document.getElementById('correctButton-' + currentType)
@@ -604,12 +604,177 @@ function checkNonNounAnswer(userInput) {
   buttonWrong.style.visibility = 'hidden'
   buttonCorrect.style.visibility = 'hidden'
 
-  if (userInput) {
+  const currentTranslationExerciseInnerText = document.getElementById(
+    'translationLearn-' + currentType
+  ).innerText
+
+  const isDecidedAsCorrect = currentTranslationExerciseInnerText === ingilizce
+
+  if (userInput === isDecidedAsCorrect) {
     document.getElementById('feedbackMessage-' + currentType).innerText =
       'Correct! 🎉'
     document.getElementById('feedbackMessage-' + currentType).style.color =
       'green'
+
+    //InProgress listesine kelimeyi ekle - Eger hic dogru bilinmemisse yeni ekle daha önce bilinmisse progress i arttir
+    if (inProgressIndex === -1) {
+      playSound(
+        'https://github.com/heroofdarkroom/proje/raw/refs/heads/master/correct.mp3'
+      )
+      inProgressWords[currentType].push({
+        almanca: currentWord.almanca,
+        counter: 1,
+      })
+      document.getElementById('progressLeft-' + currentType).style.opacity = '1'
+
+      // Liste manipülasyonlarından sonra index kontrolü
+      if (currentExerciseIndex >= kelimeListesiExercise.length) {
+        currentExerciseIndex = 0
+      }
+
+      kelimeListesiExercise.splice(currentExerciseIndex, 1)
+      if (kelimeListesiExercise.length > currentExerciseIndex + 4) {
+        kelimeListesiExercise.splice(currentExerciseIndex + 4, 0, currentWord)
+      } else {
+        kelimeListesiExercise.push(currentWord)
+      }
+
+      currentExerciseIndex++
+      if (currentExerciseIndex >= kelimeListesiExercise.length) {
+        currentExerciseIndex = 0
+      }
+    } else {
+      inProgressWords[currentType][inProgressIndex].counter += 1
+      if (inProgressWords[currentType][inProgressIndex].counter === 2) {
+        document.getElementById('progressMiddle-' + currentType).style.opacity =
+          '1'
+      }
+      //3 kere bilindiyse learnede ekle
+      if (inProgressWords[currentType][inProgressIndex].counter >= 3) {
+        playSound(
+          'https://github.com/heroofdarkroom/proje/raw/refs/heads/master/streak.mp3'
+        )
+
+        learnedWithExerciseWords[currentType].push({
+          almanca: currentWord.almanca,
+          ingilizce: currentWord.ingilizce,
+          seviye: currentWord.seviye || 'N/A',
+        })
+
+        if (inProgressWords[currentType][inProgressIndex].counter === 3) {
+          document.getElementById(
+            'feedbackMessage-' + currentType
+          ).innerText = `This word: ${currentWord.almanca} added to learned list!🏆`
+          document.getElementById(
+            'feedbackMessage-' + currentType
+          ).style.color = 'green'
+          document.getElementById(
+            'progressRight-' + currentType
+          ).style.opacity = '1'
+        }
+        updateExerciseCounter()
+        kelimeListesiExercise.splice(currentExerciseIndex, 1)
+        currentExerciseIndex--
+        if (currentExerciseIndex >= kelimeListesiExercise.length) {
+          currentExerciseIndex =
+            currentExerciseIndex % kelimeListesiExercise.length
+          if (currentExerciseIndex == 0) {
+            currentExerciseIndex++
+          }
+        }
+        // inProgressWords.splice(inProgressIndex, 1); // inProgressWords'ten çıkar
+        console.log(
+          `'${currentWord.almanca}' learnedWithExerciseWords listesine taşındı.`
+        )
+      } else {
+        playSound(
+          'https://github.com/heroofdarkroom/proje/raw/refs/heads/master/correct.mp3'
+        )
+        kelimeListesiExercise.splice(currentExerciseIndex, 1)
+        if (inProgressWords[currentType][inProgressIndex].counter === 1) {
+          kelimeListesiExercise.splice(
+            currentExerciseIndex + 8,
+            0,
+            currentWord
+          )[0]
+        } else {
+          kelimeListesiExercise.splice(
+            currentExerciseIndex + 12,
+            0,
+            currentWord
+          )[0]
+        }
+        currentExerciseIndex++
+        if (currentExerciseIndex >= kelimeListesiExercise.length) {
+          currentExerciseIndex =
+            currentExerciseIndex % kelimeListesiExercise.length
+          if (currentExerciseIndex == 0) {
+            currentExerciseIndex++
+          }
+        }
+      }
+    }
+
+    setTimeout(() => {
+      // document.getElementById('correctAnswerField').innerHTML = '___' // Tekrar boş bırak
+      buttonWrong.style.visibility = 'visible'
+      buttonCorrect.style.visibility = 'visible'
+      showExerciseWord()
+    }, 1000)
+    localStorage.setItem(
+      'learnedWithExerciseWords',
+      JSON.stringify(learnedWithExerciseWords)
+    )
+  } else {
+    if (inProgressIndex !== -1) {
+      kelimeListesiExercise.splice(currentExerciseIndex, 1)
+
+      if (kelimeListesiExercise.length > currentExerciseIndex + 10) {
+        kelimeListesiExercise.splice(currentExerciseIndex + 10, 0, currentWord)
+      } else {
+        kelimeListesiExercise.push(currentWord)
+      }
+
+      inProgressWords[currentType][inProgressIndex].counter = 0
+      document.getElementById('progressRight-' + currentType).style.opacity =
+        '0.5'
+      document.getElementById('progressMiddle-' + currentType).style.opacity =
+        '0.5'
+      document.getElementById('progressLeft-' + currentType).style.opacity =
+        '0.5'
+
+      currentExerciseIndex++
+      if (currentExerciseIndex >= kelimeListesiExercise.length) {
+        currentExerciseIndex =
+          currentExerciseIndex % kelimeListesiExercise.length
+        if (currentExerciseIndex == 0) {
+          currentExerciseIndex++
+        }
+      }
+    } else {
+      currentExerciseIndex++
+      if (currentExerciseIndex >= kelimeListesiExercise.length) {
+        currentExerciseIndex =
+          currentExerciseIndex % kelimeListesiExercise.length
+        if (currentExerciseIndex == 0) {
+          currentExerciseIndex++
+        }
+      }
+    }
+    document.getElementById(
+      'feedbackMessage-' + currentType
+    ).innerText = `Upps! ⚠️ Rule: ${kural}`
+    document.getElementById('feedbackMessage-' + currentType).style.color =
+      'red'
+    setTimeout(() => {
+      // document.getElementById('correctAnswerField').innerHTML = '___' // Tekrar boş bırak
+      buttonWrong.style.visibility = 'visible'
+      buttonCorrect.style.visibility = 'visible'
+      showExerciseWord()
+    }, 3000)
   }
+
+  localStorage.setItem('inProgressWords', JSON.stringify(inProgressWords))
 }
 
 function checkNounAnswer(userArtikel) {
@@ -843,6 +1008,48 @@ document
   .addEventListener('click', function (event) {
     event.preventDefault()
     checkNounAnswer('das')
+  })
+
+document
+  .getElementById('buttonWrong-verb')
+  .addEventListener('click', function (event) {
+    event.preventDefault() // Sayfanın yukarı kaymasını engeller
+    checkNonNounAnswer(false)
+  })
+
+document
+  .getElementById('buttonCorrect-verb')
+  .addEventListener('click', function (event) {
+    event.preventDefault()
+    checkNonNounAnswer(true)
+  })
+
+document
+  .getElementById('buttonWrong-adjective')
+  .addEventListener('click', function (event) {
+    event.preventDefault() // Sayfanın yukarı kaymasını engeller
+    checkNonNounAnswer(false)
+  })
+
+document
+  .getElementById('buttonCorrect-adjective')
+  .addEventListener('click', function (event) {
+    event.preventDefault()
+    checkNonNounAnswer(true)
+  })
+
+document
+  .getElementById('buttonWrong-adverb')
+  .addEventListener('click', function (event) {
+    event.preventDefault() // Sayfanın yukarı kaymasını engeller
+    checkNonNounAnswer(false)
+  })
+
+document
+  .getElementById('buttonCorrect-adverb')
+  .addEventListener('click', function (event) {
+    event.preventDefault()
+    checkNonNounAnswer(true)
   })
 
 // Learn functionality buttons
