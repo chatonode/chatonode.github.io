@@ -1,5 +1,5 @@
 // URLs for different word lists
-const JSON_URLS = {
+const JSON_URLS_NOUN = {
   b1telcpt1:
     'https://script.google.com/macros/s/AKfycbx4gHC-bY0VmvCeZo1fnZ2myu9qdEIoJw0xCk0kjb-yFVinPHypN458aZDdlI1CEJM/exec',
   b1telcpt2:
@@ -29,6 +29,13 @@ const JSON_URLS_ADVERB = {
   b1telcpt2: 'https://chatonode.github.io/adverb.json',
   b1telcpt3: 'https://chatonode.github.io/adverb.json',
   b1telcpt4: 'https://chatonode.github.io/adverb.json',
+}
+
+const JSON_URLS = {
+  noun: JSON_URLS_NOUN,
+  verb: JSON_URLS_VERB,
+  adjective: JSON_URLS_ADJECTIVE,
+  adverb: JSON_URLS_ADVERB,
 }
 
 let learnedWithLearnWords = {
@@ -276,17 +283,7 @@ async function loadWords(topic) {
       feedbackMessage.innerText = ''
     }
 
-    const response = await fetch(
-      currentType === 'noun'
-        ? JSON_URLS[topic]
-        : currentType === 'verb'
-        ? JSON_URLS_VERB[topic]
-        : currentType === 'adjective'
-        ? JSON_URLS_ADJECTIVE[topic]
-        : currentType === 'adverb'
-        ? JSON_URLS_ADVERB[topic]
-        : null
-    )
+    const response = await fetch(JSON_URLS[currentType][topic])
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`)
