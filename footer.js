@@ -447,9 +447,7 @@ function getRandomTranslationResult(selectedWord) {
   console.log(selectedWord)
 
   const filteredKelimeListesiExercise = kelimeListesiExercise.filter(
-    (kelimeExercise) => {
-      kelimeExercise.almanca !== selectedWord.almanca
-    }
+    (kelimeExercise) => kelimeExercise.almanca !== selectedWord.almanca
   )
 
   console.log(filteredKelimeListesiExercise)
@@ -458,7 +456,7 @@ function getRandomTranslationResult(selectedWord) {
 
   console.log(filteredKelimeListesiExercise[randomIndex])
 
-  const randomResult = filteredKelimeListesiExercise[randomIndex]["ingilizce"]
+  const randomResult = filteredKelimeListesiExercise[randomIndex]['ingilizce']
 
   console.log(randomResult)
 
