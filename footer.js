@@ -24,6 +24,13 @@ let learnedWithLearnWords = {
   adverb: [],
 }
 
+let learnedWithExerciseWords = {
+  noun: [],
+  verb: [],
+  adjective: [],
+  adverb: [],
+}
+
 // Global variables
 let currentType = 'noun'
 const types = ['noun', 'verb', 'adjective', 'adverb']
@@ -408,13 +415,13 @@ function showExerciseWord() {
     JSON.parse(localStorage.getItem('inProgressWords-' + currentType)) || []
 
   learnedWithExerciseWords =
-    JSON.parse(localStorage.getItem('learnedWithExerciseWords')) || []
+    JSON.parse(localStorage.getItem('learnedWithExerciseWords')) || learnedWithExerciseWords
 
   // 🟢 `kelimeListesi` içinden `learnedWords`'de olanları çıkar
-  if (learnedWithExerciseWords.length > 0) {
+  if (learnedWithExerciseWords[currentType].length > 0) {
     kelimeListesiExercise = kelimeListesiExercise.filter(
       (word) =>
-        !learnedWithExerciseWords.some(
+        !learnedWithExerciseWords[currentType].some(
           (learned) => learned.almanca === word.almanca
         )
     )
@@ -509,8 +516,8 @@ function checkAnswer(userArtikel) {
   )
   let inProgressWords =
     JSON.parse(localStorage.getItem('inProgressWords-' + currentType)) || []
-  let learnedWithExerciseWords =
-    JSON.parse(localStorage.getItem('learnedWithExerciseWords')) || []
+  learnedWithExerciseWords =
+    JSON.parse(localStorage.getItem('learnedWithExerciseWords')) || learnedWithExerciseWords
 
   const currentWord = kelimeListesiExercise[currentExerciseIndex]
 
@@ -571,7 +578,7 @@ function checkAnswer(userArtikel) {
           'https://github.com/heroofdarkroom/proje/raw/refs/heads/master/streak.mp3'
         )
 
-        learnedWithExerciseWords.push({
+        learnedWithExerciseWords[currentType].push({
           almanca: currentWord.almanca,
           ingilizce: currentWord.ingilizce,
           seviye: currentWord.seviye || 'N/A',
@@ -1041,7 +1048,7 @@ function navigateToPage(pageId) {
         'repeatButtonLearn-' + currentType
       ).style.visibility = 'hidden'
     }
-    if (learnedWithExerciseWords >= initialTotalWords) {
+    if (learnedWithExerciseWords[currentType] >= initialTotalWords) {
       document.getElementById('buttonDer').style.visibility = 'hidden'
       document.getElementById('buttonDie').style.visibility = 'hidden'
       document.getElementById('buttonDas').style.visibility = 'hidden'
