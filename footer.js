@@ -436,10 +436,14 @@ function getRandomNumber(max) {
   return Math.floor(Math.random() * (max + 1))
 }
 
-function decideWrongOrCorrect() {
+function shouldUseOwnMeaning() {
   // Math.random() returns a number between 0 (inclusive) and 1 (exclusive).
   // If the number is less than 0.6, that's a 60% chance.
-  return Math.random() < 0.6
+  const useOwnMeaning = Math.random() < 0.6
+  console.log(
+    'decided as: ' + (useOwnMeaning ? 'own meaning' : 'different meaning')
+  )
+  return useOwnMeaning
 }
 
 function getRandomTranslationResult(selectedWord) {
@@ -545,7 +549,7 @@ function showExerciseWord() {
       currentType === 'noun'
         ? ingilizce // İngilizce çeviriyi göster
         : // else
-        decideWrongOrCorrect() // true - false
+        shouldUseOwnMeaning() // true - false
         ? ingilizce
         : getRandomTranslationResult(currentWord)
   } else {
@@ -608,9 +612,11 @@ function checkNonNounAnswer(userInput) {
     'translationLearn-' + currentType
   ).innerText
 
-  const isDecidedAsCorrect = currentTranslationExerciseInnerText === ingilizce
+  const doMeaningsMatch =
+    currentTranslationExerciseInnerText.trim().toLowerCase() === // "finden">> "to find" / "to find"
+    ingilizce.trim().toLowerCase() //                           // "finden">> "to find" / "to help"                            
 
-  if (userInput === isDecidedAsCorrect) {
+  if (userInput === doMeaningsMatch) {
     document.getElementById('feedbackMessage-' + currentType).innerText =
       'Correct! 🎉'
     document.getElementById('feedbackMessage-' + currentType).style.color =
