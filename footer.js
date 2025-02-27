@@ -614,7 +614,11 @@ function checkNonNounAnswer(userInput) {
 
   const doMeaningsMatch =
     currentTranslationExerciseInnerText.trim().toLowerCase() === // "finden">> "to find" / "to find"
-    ingilizce.trim().toLowerCase() //                           // "finden">> "to find" / "to help"                             
+    ingilizce.trim().toLowerCase() //                           // "finden">> "to find" / "to help"
+
+  console.log(currentTranslationExerciseInnerText.trim().toLowerCase())
+  console.log(ingilizce.trim().toLowerCase())
+  console.log(`so: ${doMeaningsMatch}`)
 
   if (userInput === doMeaningsMatch) {
     document.getElementById('feedbackMessage-' + currentType).innerText =
