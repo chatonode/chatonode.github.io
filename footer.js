@@ -629,7 +629,10 @@ function checkNonNounAnswer(userInput) {
   // ).innerText
 
   const wrongButValue = buttonWrong.getAttribute('wrong-but')
-  const isAnswerWrong = wrongButValue !== undefined && wrongButValue === true
+  const isAnswerWrong =
+    buttonWrong.hasAttribute('wrong-but') &&
+    wrongButValue !== null &&
+    wrongButValue === true
 
   if (userInput === isAnswerWrong) {
     document.getElementById('feedbackMessage-' + currentType).innerText =
