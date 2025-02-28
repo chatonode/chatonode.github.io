@@ -1190,8 +1190,8 @@ function setupEventListeners() {
     //   `repeatButtonLearn-${currentType}`
     // )
 
-    const iKnowButtons = document.querySelectorAll('.iKnowButtons')
-    const repeatButtons = document.querySelectorAll('.repeatButtons')
+    const iKnowButtons = document.querySelectorAll('.i-know-buttons')
+    const repeatButtons = document.querySelectorAll('.repeat-buttons')
 
     iKnowButtons.forEach((iKnowButton, index) => {
       setupListenerForIknowAndLearn(iKnowButton, repeatButtons[index])
