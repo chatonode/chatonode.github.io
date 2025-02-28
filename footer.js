@@ -544,14 +544,12 @@ function showExerciseWord() {
     'exerciseTranslation-' + currentType
   )
   if (exerciseTranslationElement) {
-    const isUsingOwnMeaning = shouldUseOwnMeaning()
-
     // let exerciseTranslationText = ''
 
     // if (currentType === 'noun') {
     //   exerciseTranslationText = ingilizce
     // } else {
-    //   if (isUsingOwnMeaning) {
+    //   if (shouldUseOwnMeaning()) {
     //     exerciseTranslationText = ingilizce
     //   } else {
     //     const randomWrongWordResult = getRandomTranslationResult(currentWord)
@@ -561,13 +559,14 @@ function showExerciseWord() {
     // }
 
     const exerciseTranslationText =
-      currentType === 'noun' || isUsingOwnMeaning
+      currentType === 'noun'
+        ? ingilizce
+        : shouldUseOwnMeaning()
         ? ingilizce
         : (nonNounWrongMeaning =
             getRandomTranslationResult(currentWord).ingilizce)
 
     exerciseTranslationElement.innerText = exerciseTranslationText
-    
   } else {
     console.error('exerciseTranslation ID not found!')
   }
