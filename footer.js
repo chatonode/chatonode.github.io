@@ -515,9 +515,10 @@ function showExerciseWord() {
       buttonDie.style.visibility = 'hidden'
       buttonDas.style.visibility = 'hidden'
     } else {
-      // todo
-      // buttonWrong.style.visibility = 'hidden'
-      // buttonCorrect.style.visibility = 'hidden'
+      document.getElementById('wrongButton-' + currentType).style.visibility =
+        'hidden'
+      document.getElementById('correctButton-' + currentType).style.visibility =
+        'hidden'
     }
 
     document.getElementById(
@@ -543,7 +544,7 @@ function showExerciseWord() {
     'exerciseTranslation-' + currentType
   )
   if (exerciseTranslationElement) {
-    let exerciseTranslationText
+    let exerciseTranslationText = ''
 
     if (currentType === 'noun') {
       exerciseTranslationText = ingilizce
