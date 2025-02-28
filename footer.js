@@ -1190,15 +1190,35 @@ function setupEventListeners() {
     //   `repeatButtonLearn-${currentType}`
     // )
 
-    const iKnowButtons = document.querySelectorAll('.i-know-buttons')
-    const repeatButtons = document.querySelectorAll('.repeat-buttons')
+    // const iKnowButtons = document.querySelectorAll('.i-know-buttons')
+    // const repeatButtons = document.querySelectorAll('.repeat-buttons')
 
-    iKnowButtons.forEach((iKnowButton, index) => {
-      setupListenerForIknowAndLearn(iKnowButton, repeatButtons[index])
-    })
+    // iKnowButtons.forEach((iKnowButton, index) => {
+    //   setupListenerForIknowAndLearn(iKnowButton, repeatButtons[index])
+    // })
 
     // const repeatButtonVerb = document.getElementById('repeatButtonLearnVerb')
     // const iKnowButtonVerb = document.getElementById('iKnowButtonLearnVerb')
+
+    const iKnowButtonNoun = document.getElementById(`iKnowButtonLearn-noun`)
+    const repeatButtonNoun = document.getElementById(`repeatButtonLearn-noun`)
+    const iKnowButtonVerb = document.getElementById(`iKnowButtonLearn-verb`)
+    const repeatButtonVerb = document.getElementById(`repeatButtonLearn-verb`)
+    const iKnowButtonAdjective = document.getElementById(
+      `iKnowButtonLearn-adjective`
+    )
+    const repeatButtonAdjective = document.getElementById(
+      `repeatButtonLearn-adjective`
+    )
+    const iKnowButtonAdverb = document.getElementById(`iKnowButtonLearn-adverb`)
+    const repeatButtonAdverb = document.getElementById(
+      `repeatButtonLearn-adverb`
+    )
+
+    setupListenerForIknowAndLearn(iKnowButtonNoun, repeatButtonNoun)
+    setupListenerForIknowAndLearn(iKnowButtonVerb, repeatButtonVerb)
+    setupListenerForIknowAndLearn(iKnowButtonAdjective, repeatButtonAdjective)
+    setupListenerForIknowAndLearn(iKnowButtonAdverb, repeatButtonAdverb)
 
     const outfav = document.getElementById('outfav')
     const infav = document.getElementById('infav')
