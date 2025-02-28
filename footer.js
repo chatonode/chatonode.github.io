@@ -554,6 +554,7 @@ function showExerciseWord() {
             const randomWrongWordResult =
               getRandomTranslationResult(currentWord)
             nonNounWrongMeaning = randomWrongWordResult.ingilizce
+            return randomWrongWordResult.ingilizce
           }
   } else {
     console.error('exerciseTranslation ID not found!')
