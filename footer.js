@@ -622,18 +622,9 @@ function checkNonNounAnswer(userInput) {
   buttonWrong.style.visibility = 'hidden'
   buttonCorrect.style.visibility = 'hidden'
 
-  // // issue: inconsistent and broken results with inner text
-  // const currentExerciseTranslationValue = document.getElementById(
-  //   'translationLearn-' + currentType
-  // ).innerText
+  const isAnswerCorrect = !buttonWrong.hasAttribute('wrong-but')
 
-  // const wrongButValue = buttonWrong.getAttribute('wrong-but')
-  const isAnswerWrong = buttonWrong.hasAttribute('wrong-but')
-  // &&
-  // wrongButValue !== null &&
-  // wrongButValue === "true"
-
-  if (userInput === isAnswerWrong) {
+  if (userInput === isAnswerCorrect) {
     document.getElementById('feedbackMessage-' + currentType).innerText =
       'Correct! 🎉'
     document.getElementById('feedbackMessage-' + currentType).style.color =
