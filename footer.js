@@ -1229,8 +1229,8 @@ document.addEventListener('DOMContentLoaded', () => {
         return Array.from(mutation.addedNodes).some(
           (node) =>
             node.nodeType === 1 && // Element node
-            (node.id === 'repeatButtonLearn' ||
-              node.id === 'iKnowButtonLearn' ||
+            (node.id === `repeatButtonLearn-${currentType}` ||
+              node.id === `iKnowButtonLearn-${currentType}` ||
               node.id === 'outfav' ||
               node.id === 'infav')
         )
