@@ -86,9 +86,6 @@ const correctAnswerWordsCounter = {
 
 let initialTotalWords = 0 // Yeni eklenen değişken
 
-let repeatButtons
-let iKnowButtons
-
 async function executeInitialLoadAndShow() {
   const lastSelectedTopic = localStorage.getItem('lastSelectedTopic')
   await loadWords(lastSelectedTopic)
@@ -359,11 +356,18 @@ function showLearnWord() {
     document.getElementById('levelTagLearn').innerText = ''
     document.getElementById('ruleLearn-' + currentType).innerText = '' // Kural boş
 
-    if (iKnowButtons) {
-      iKnowButtons.style.visibility = 'hidden'
+    const iKnowButton = document.getElementById(
+      `iKnowButtonLearn-${currentType}`
+    )
+    const repeatButton = document.getElementById(
+      `repeatButtonLearn-${currentType}`
+    )
+
+    if (iKnowButton) {
+      iKnowButton.style.visibility = 'hidden'
     }
-    if (repeatButtons) {
-      repeatButtons.style.visibility = 'hidden'
+    if (repeatButton) {
+      repeatButton.style.visibility = 'hidden'
     }
     return
   }
@@ -1097,11 +1101,17 @@ function iKnowLearn() {
     currentLearnIndex >= kelimeListesi.length ||
     learnedWords[currentType] >= initialTotalWords
   ) {
-    if (iKnowButtons) {
-      iKnowButtons.style.visibility = 'hidden'
+    const iKnowButton = document.getElementById(
+      `iKnowButtonLearn-${currentType}`
+    )
+    const repeatButton = document.getElementById(
+      `repeatButtonLearn-${currentType}`
+    )
+    if (iKnowButton) {
+      iKnowButton.style.visibility = 'hidden'
     }
-    if (repeatButtons) {
-      repeatButtons.style.visibility = 'hidden'
+    if (repeatButton) {
+      repeatButton.style.visibility = 'hidden'
     }
     return
   }
@@ -1142,11 +1152,17 @@ function iKnowLearn() {
 
     if (learnedWords[currentType] >= initialTotalWords) {
       showModal('You learned all words! 🎉')
-      if (iKnowButtons) {
-        iKnowButtons.style.visibility = 'hidden'
+      const iKnowButton = document.getElementById(
+        `iKnowButtonLearn-${currentType}`
+      )
+      const repeatButton = document.getElementById(
+        `repeatButtonLearn-${currentType}`
+      )
+      if (iKnowButton) {
+        iKnowButton.style.visibility = 'hidden'
       }
-      if (repeatButtons) {
-        repeatButtons.style.visibility = 'hidden'
+      if (repeatButton) {
+        repeatButton.style.visibility = 'hidden'
       }
     }
 
@@ -1167,11 +1183,11 @@ document.addEventListener('DOMContentLoaded', () => {
 function setupEventListeners() {
   try {
     // Butonları ID ile seçelim
-    const repeatButton = document.getElementById(
-      'repeatButtonLearn-' + currentType
-    )
     const iKnowButton = document.getElementById(
-      'iKnowButtonLearn-' + currentType
+      `iKnowButtonLearn-${currentType}`
+    )
+    const repeatButton = document.getElementById(
+      `repeatButtonLearn-${currentType}`
     )
 
     setupListenerForIknowAndLearn(iKnowButton, repeatButton)
@@ -1437,8 +1453,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         currentType === 'adjective' ||
         currentType === 'adverb'
       ) {
-        document.getElementById(`wrongButton-${currentType}`).style.visibility = 'hidden'
-        document.getElementById(`correctButton-${currentType}`).style.visibility = 'hidden'
+        document.getElementById(`wrongButton-${currentType}`).style.visibility =
+          'hidden'
+        document.getElementById(
+          `correctButton-${currentType}`
+        ).style.visibility = 'hidden'
       }
     }
   } catch (error) {
