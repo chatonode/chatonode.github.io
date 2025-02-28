@@ -1428,9 +1428,18 @@ document.addEventListener('DOMContentLoaded', async () => {
       ).style.visibility = 'hidden'
     }
     if (learnedWithExerciseWords[currentType] >= initialTotalWords) {
-      document.getElementById('buttonDer').style.visibility = 'hidden'
-      document.getElementById('buttonDie').style.visibility = 'hidden'
-      document.getElementById('buttonDas').style.visibility = 'hidden'
+      if (currentType === 'noun') {
+        document.getElementById('buttonDer').style.visibility = 'hidden'
+        document.getElementById('buttonDie').style.visibility = 'hidden'
+        document.getElementById('buttonDas').style.visibility = 'hidden'
+      } else if (
+        currentType === 'verb' ||
+        currentType === 'adjective' ||
+        currentType === 'adverb'
+      ) {
+        document.getElementById(`wrongButton-${currentType}`).style.visibility = 'hidden'
+        document.getElementById(`correctButton-${currentType}`).style.visibility = 'hidden'
+      }
     }
   } catch (error) {
     console.error('Başlangıç yüklemesi hatası:', error)
