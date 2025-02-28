@@ -544,18 +544,30 @@ function showExerciseWord() {
     'exerciseTranslation-' + currentType
   )
   if (exerciseTranslationElement) {
-    exerciseTranslationElement.innerText =
-      currentType === 'noun'
-        ? ingilizce // İngilizce çeviriyi göster
-        : // else
-        shouldUseOwnMeaning() // true - false
+    const isUsingOwnMeaning = shouldUseOwnMeaning()
+
+    // let exerciseTranslationText = ''
+
+    // if (currentType === 'noun') {
+    //   exerciseTranslationText = ingilizce
+    // } else {
+    //   if (isUsingOwnMeaning) {
+    //     exerciseTranslationText = ingilizce
+    //   } else {
+    //     const randomWrongWordResult = getRandomTranslationResult(currentWord)
+    //     nonNounWrongMeaning = randomWrongWordResult.ingilizce
+    //     exerciseTranslationText = nonNounWrongMeaning
+    //   }
+    // }
+
+    const exerciseTranslationText =
+      currentType === 'noun' || isUsingOwnMeaning
         ? ingilizce
-        : () => {
-            const randomWrongWordResult =
-              getRandomTranslationResult(currentWord)
-            nonNounWrongMeaning = randomWrongWordResult.ingilizce
-            return randomWrongWordResult.ingilizce
-          }
+        : (nonNounWrongMeaning =
+            getRandomTranslationResult(currentWord).ingilizce)
+
+    exerciseTranslationElement.innerText = exerciseTranslationText
+    
   } else {
     console.error('exerciseTranslation ID not found!')
   }
