@@ -1289,8 +1289,10 @@ function updateExerciseCounter() {
       currentType === 'adjective' ||
       currentType === 'adverb'
     ) {
-      document.getElementById(`wrongButton-${currentType}`).style.visibility = 'hidden'
-      document.getElementById(`correctButton-${currentType}`).style.visibility = 'hidden'
+      document.getElementById(`wrongButton-${currentType}`).style.visibility =
+        'hidden'
+      document.getElementById(`correctButton-${currentType}`).style.visibility =
+        'hidden'
     }
     document.getElementById('feedbackMessage-' + currentType).innerText =
       'You completed all exercise words! 🎉'
@@ -1438,42 +1440,79 @@ document.addEventListener('DOMContentLoaded', async () => {
 })
 
 function resetExerciseButtons() {
-  var buttonDer = document.getElementById('buttonDer')
-  var buttonDie = document.getElementById('buttonDie')
-  var buttonDas = document.getElementById('buttonDas')
+  if (currentType === 'noun') {
+    var buttonDer = document.getElementById('buttonDer')
+    var buttonDie = document.getElementById('buttonDie')
+    var buttonDas = document.getElementById('buttonDas')
 
-  if (buttonDer && buttonDie && buttonDas) {
-    // **Butonları tekrar görünür hale getir**
-    buttonDer.style.visibility = 'visible'
-    buttonDie.style.visibility = 'visible'
-    buttonDas.style.visibility = 'visible'
+    if (buttonDer && buttonDie && buttonDas) {
+      // **Butonları tekrar görünür hale getir**
+      buttonDer.style.visibility = 'visible'
+      buttonDie.style.visibility = 'visible'
+      buttonDas.style.visibility = 'visible'
 
-    // **Önce eski event listener'ları kaldır**
-    var newButtonDer = buttonDer.cloneNode(true)
-    var newButtonDie = buttonDie.cloneNode(true)
-    var newButtonDas = buttonDas.cloneNode(true)
+      // **Önce eski event listener'ları kaldır**
+      var newButtonDer = buttonDer.cloneNode(true)
+      var newButtonDie = buttonDie.cloneNode(true)
+      var newButtonDas = buttonDas.cloneNode(true)
 
-    buttonDer.parentNode.replaceChild(newButtonDer, buttonDer)
-    buttonDie.parentNode.replaceChild(newButtonDie, buttonDie)
-    buttonDas.parentNode.replaceChild(newButtonDas, buttonDas)
+      buttonDer.parentNode.replaceChild(newButtonDer, buttonDer)
+      buttonDie.parentNode.replaceChild(newButtonDie, buttonDie)
+      buttonDas.parentNode.replaceChild(newButtonDas, buttonDas)
 
-    // **Yeni event listener'ları ekleyelim**
-    newButtonDer.addEventListener('click', function (event) {
-      event.preventDefault()
-      checkNounAnswer('der')
-    })
+      // **Yeni event listener'ları ekleyelim**
+      newButtonDer.addEventListener('click', function (event) {
+        event.preventDefault()
+        checkNounAnswer('der')
+      })
 
-    newButtonDie.addEventListener('click', function (event) {
-      event.preventDefault()
-      checkNounAnswer('die')
-    })
+      newButtonDie.addEventListener('click', function (event) {
+        event.preventDefault()
+        checkNounAnswer('die')
+      })
 
-    newButtonDas.addEventListener('click', function (event) {
-      event.preventDefault()
-      checkNounAnswer('das')
-    })
+      newButtonDas.addEventListener('click', function (event) {
+        event.preventDefault()
+        checkNounAnswer('das')
+      })
 
-    console.log('🔥 Der, Die, Das butonları tekrar aktif hale getirildi.')
+      console.log('🔥 Der, Die, Das butonları tekrar aktif hale getirildi.')
+    }
+  } else if (
+    currentType === 'verb' ||
+    currentType === 'adjective' ||
+    currentType === 'adverb'
+  ) {
+    var buttonWrong = document.getElementById(`wrongButton-${currentType}`)
+    var buttonCorrect = document.getElementById(`correctButton-${currentType}`)
+
+    if (buttonWrong && buttonCorrect) {
+      // **Butonları tekrar görünür hale getir**
+      buttonWrong.style.visibility = 'visible'
+      buttonCorrect.style.visibility = 'visible'
+
+      // **Önce eski event listener'ları kaldır**
+      var newButtonWrong = buttonWrong.cloneNode(true)
+      var newButtonCorrect = buttonCorrect.cloneNode(true)
+
+      buttonWrong.parentNode.replaceChild(newButtonWrong, buttonWrong)
+      buttonCorrect.parentNode.replaceChild(newButtonCorrect, buttonCorrect)
+
+      // **Yeni event listener'ları ekleyelim**
+      newButtonWrong.addEventListener('click', function (event) {
+        event.preventDefault()
+        checkNonNounAnswer(false)
+      })
+
+      newButtonCorrect.addEventListener('click', function (event) {
+        event.preventDefault()
+        checkNonNounAnswer(true)
+      })
+
+      console.log(
+        `🔥 Correct-${currentType}, Wrong-${currentType} butonları tekrar aktif hale getirildi.`
+      )
+    }
   }
 }
 
