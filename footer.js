@@ -556,8 +556,7 @@ function showExerciseWord() {
       if (shouldUseOwnMeaning()) {
         exerciseTranslationText = ingilizce
       } else {
-        exerciseTranslationText =
-          getRandomTranslationResult(currentWord).ingilizce
+        exerciseTranslationText = getRandomTranslationResult(currentWord)
         // todo: transfer data for checking the answer later
         const buttonWrong = document.getElementById(
           'wrongButton-' + currentType
