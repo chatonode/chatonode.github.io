@@ -1183,14 +1183,19 @@ document.addEventListener('DOMContentLoaded', () => {
 function setupEventListeners() {
   try {
     // Butonları ID ile seçelim
-    const iKnowButton = document.getElementById(
-      `iKnowButtonLearn-${currentType}`
-    )
-    const repeatButton = document.getElementById(
-      `repeatButtonLearn-${currentType}`
-    )
+    // const iKnowButton = document.getElementById(
+    //   `iKnowButtonLearn-${currentType}`
+    // )
+    // const repeatButton = document.getElementById(
+    //   `repeatButtonLearn-${currentType}`
+    // )
 
-    setupListenerForIknowAndLearn(iKnowButton, repeatButton)
+    const iKnowButtons = document.getElementsByClassName(`iKnowButtons`)
+    const repeatButtons = document.getElementsByClassName(`repeatButtons`)
+
+    iKnowButtons.forEach((iKnowButton, index) => {
+      setupListenerForIknowAndLearn(iKnowButton, repeatButtons[index])
+    })
 
     // const repeatButtonVerb = document.getElementById('repeatButtonLearnVerb')
     // const iKnowButtonVerb = document.getElementById('iKnowButtonLearnVerb')
