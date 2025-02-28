@@ -456,13 +456,11 @@ function getRandomTranslationResult(selectedWord) {
 
   console.log(filteredKelimeListesiExercise)
 
-  const randomIndex = getRandomNumber(filteredKelimeListesiExercise.length)
+  const randomIndex = getRandomNumber(filteredKelimeListesiExercise.length - 1)
 
   console.log(filteredKelimeListesiExercise[randomIndex])
 
-  const randomResult = filteredKelimeListesiExercise[randomIndex]['ingilizce']
-
-  console.log(randomResult)
+  const randomResult = filteredKelimeListesiExercise[randomIndex].ingilizce
 
   return randomResult
 }
@@ -616,8 +614,13 @@ function checkNonNounAnswer(userInput) {
     currentTranslationExerciseInnerText.trim().toLowerCase() === // "finden">> "to find" / "to find"
     ingilizce.trim().toLowerCase() //                           // "finden">> "to find" / "to help"
 
-  console.log(currentTranslationExerciseInnerText.trim().toLowerCase())
-  console.log(ingilizce.trim().toLowerCase())
+  console.log(
+    `current: ${ingilizce
+      .trim()
+      .toLowerCase()} | received: ${currentTranslationExerciseInnerText
+      .trim()
+      .toLowerCase()}`
+  )
   console.log(`so: ${doMeaningsMatch}`)
 
   if (userInput === doMeaningsMatch) {
