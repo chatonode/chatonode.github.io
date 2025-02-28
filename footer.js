@@ -543,32 +543,29 @@ function showExerciseWord() {
     'exerciseTranslation-' + currentType
   )
   if (exerciseTranslationElement) {
-    // let exerciseTranslationText = ''
+    let exerciseTranslationText
 
-    // if (currentType === 'noun') {
-    //   exerciseTranslationText = ingilizce
-    // } else {
-    //   if (shouldUseOwnMeaning()) {
-    //     exerciseTranslationText = ingilizce
-    //   } else {
-    //     const randomWrongWordResult = getRandomTranslationResult(currentWord)
-    //     nonNounWrongMeaning = randomWrongWordResult.ingilizce
-    //     exerciseTranslationText = nonNounWrongMeaning
-    //   }
-    // }
-
-    let nonNounWrongTranslation
-
-    const exerciseTranslationText =
-      currentType === 'noun'
-        ? ingilizce
-        : shouldUseOwnMeaning()
-        ? ingilizce
-        : (nonNounWrongTranslation =
-            getRandomTranslationResult(currentWord).ingilizce)
+    if (currentType === 'noun') {
+      exerciseTranslationText = ingilizce
+    } else if (
+      currentType === 'verb' ||
+      currentType === 'adjective' ||
+      currentType === 'adverb'
+    ) {
+      if (shouldUseOwnMeaning()) {
+        exerciseTranslationText = ingilizce
+      } else {
+        exerciseTranslationText =
+          getRandomTranslationResult(currentWord).ingilizce
+        // todo: transfer data for checking the answer later
+        const buttonWrong = document.getElementById(
+          'wrongButton-' + currentType
+        )
+        buttonWrong.setAttribute('wrong-but', true)
+      }
+    }
 
     exerciseTranslationElement.innerText = exerciseTranslationText
-    exerciseTranslationElement.translation = nonNounWrongTranslation
   } else {
     console.error('exerciseTranslation ID not found!')
   }
@@ -625,25 +622,15 @@ function checkNonNounAnswer(userInput) {
   buttonWrong.style.visibility = 'hidden'
   buttonCorrect.style.visibility = 'hidden'
 
-  // issue: inconsistent and broken results with inner text
-  const currentExerciseTranslationValue = document.getElementById(
-    'translationLearn-' + currentType
-  ).translation
+  // // issue: inconsistent and broken results with inner text
+  // const currentExerciseTranslationValue = document.getElementById(
+  //   'translationLearn-' + currentType
+  // ).innerText
 
-  const doMeaningsMatch =
-    currentExerciseTranslationValue.trim().toLowerCase() === // "finden">> "to find" / "to find"
-    ingilizce.trim().toLowerCase() //                           // "finden">> "to find" / "to help"
+  const wrongButValue = buttonWrong.getAttribute('wrong-but')
+  const isAnswerWrong = wrongButValue !== undefined && wrongButValue === true
 
-  console.log(
-    `current: ${ingilizce
-      .trim()
-      .toLowerCase()} | received: ${currentExerciseTranslationValue
-      .trim()
-      .toLowerCase()}`
-  )
-  console.log(`so: ${doMeaningsMatch}`)
-
-  if (userInput === doMeaningsMatch) {
+  if (userInput === isAnswerWrong) {
     document.getElementById('feedbackMessage-' + currentType).innerText =
       'Correct! 🎉'
     document.getElementById('feedbackMessage-' + currentType).style.color =
@@ -807,6 +794,7 @@ function checkNonNounAnswer(userInput) {
     }, 3000)
   }
 
+  buttonWrong.removeAttribute('wrong-but')
   localStorage.setItem('inProgressWords', JSON.stringify(inProgressWords))
 }
 
