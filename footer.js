@@ -627,11 +627,11 @@ function checkNonNounAnswer(userInput) {
   //   'translationLearn-' + currentType
   // ).innerText
 
-  const wrongButValue = buttonWrong.getAttribute('wrong-but')
-  const isAnswerWrong =
-    buttonWrong.hasAttribute('wrong-but') &&
-    wrongButValue !== null &&
-    wrongButValue === true
+  // const wrongButValue = buttonWrong.getAttribute('wrong-but')
+  const isAnswerWrong = buttonWrong.hasAttribute('wrong-but')
+  // &&
+  // wrongButValue !== null &&
+  // wrongButValue === "true"
 
   if (userInput === isAnswerWrong) {
     document.getElementById('feedbackMessage-' + currentType).innerText =
