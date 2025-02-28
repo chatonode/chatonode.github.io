@@ -1279,14 +1279,19 @@ function updateExerciseCounter() {
 
   if (correctAnswerWordsCounter[currentType] >= initialTotalWords) {
     showModalExercise('You completed all exercise words! 🎉')
-    var buttonDer = document.getElementById('buttonDer')
-    var buttonDie = document.getElementById('buttonDie')
-    var buttonDas = document.getElementById('buttonDas')
 
-    buttonDer.style.visibility = 'hidden'
-    buttonDie.style.visibility = 'hidden'
-    buttonDas.style.visibility = 'hidden'
-
+    if (currentType === 'noun') {
+      document.getElementById('buttonDer').style.visibility = 'hidden'
+      document.getElementById('buttonDie').style.visibility = 'hidden'
+      document.getElementById('buttonDas').style.visibility = 'hidden'
+    } else if (
+      currentType === 'verb' ||
+      currentType === 'adjective' ||
+      currentType === 'adverb'
+    ) {
+      document.getElementById(`wrongButton-${currentType}`).style.visibility = 'hidden'
+      document.getElementById(`correctButton-${currentType}`).style.visibility = 'hidden'
+    }
     document.getElementById('feedbackMessage-' + currentType).innerText =
       'You completed all exercise words! 🎉'
   }
