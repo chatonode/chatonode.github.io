@@ -60,7 +60,6 @@ let inProgressWords = {
 }
 
 // Global variables
-let nonNounWrongMeaning = ''
 let currentType = 'noun'
 const types = ['noun', 'verb', 'adjective', 'adverb']
 
@@ -558,15 +557,18 @@ function showExerciseWord() {
     //   }
     // }
 
+    let nonNounWrongTranslation
+
     const exerciseTranslationText =
       currentType === 'noun'
         ? ingilizce
         : shouldUseOwnMeaning()
         ? ingilizce
-        : (nonNounWrongMeaning =
+        : (nonNounWrongTranslation =
             getRandomTranslationResult(currentWord).ingilizce)
 
     exerciseTranslationElement.innerText = exerciseTranslationText
+    exerciseTranslationElement.translation = nonNounWrongTranslation
   } else {
     console.error('exerciseTranslation ID not found!')
   }
@@ -624,18 +626,20 @@ function checkNonNounAnswer(userInput) {
   buttonCorrect.style.visibility = 'hidden'
 
   // issue: inconsistent and broken results with inner text
-  // const currentTranslationExerciseInnerText = document.getElementById(
-  //   'translationLearn-' + currentType
-  // ).innerText
-  // basic solution: global variable
+  const currentExerciseTranslationValue = document.getElementById(
+    'translationLearn-' + currentType
+  ).translation
+
   const doMeaningsMatch =
-    nonNounWrongMeaning.trim().toLowerCase() === // "finden">> "to find" / "to find"
+    currentExerciseTranslationValue.trim().toLowerCase() === // "finden">> "to find" / "to find"
     ingilizce.trim().toLowerCase() //                           // "finden">> "to find" / "to help"
 
   console.log(
     `current: ${ingilizce
       .trim()
-      .toLowerCase()} | received: ${nonNounWrongMeaning.trim().toLowerCase()}`
+      .toLowerCase()} | received: ${currentExerciseTranslationValue
+      .trim()
+      .toLowerCase()}`
   )
   console.log(`so: ${doMeaningsMatch}`)
 
