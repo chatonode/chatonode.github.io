@@ -399,6 +399,12 @@ function showLearnWord() {
     case 'verb':
       document.getElementById('wordLearn-' + currentType).innerHTML = almanca
       break
+    case 'adjective':
+      document.getElementById('wordLearn-' + currentType).innerHTML = almanca
+      break
+    case 'adverb':
+      document.getElementById('wordLearn-' + currentType).innerHTML = almanca
+      break
   }
 
   document.getElementById('levelTagLearn').innerText = seviye || 'N/A'
