@@ -1363,9 +1363,10 @@ function addToFavorites() {
 
   // Favorilere ekle
   favoriteWords.push({
+    type: currentType,
     almanca: currentWord.almanca,
     ingilizce: currentWord.ingilizce,
-    seviye: currentWord.seviye || 'N/A',
+    seviye: currentWord.seviye || 'N/A'
   })
   localStorage.setItem('favoriteWords', JSON.stringify(favoriteWords))
 
