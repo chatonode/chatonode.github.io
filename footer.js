@@ -175,16 +175,18 @@ function hideSkeleton() {
   showLearnElements()
 }
 
+const learnElementIds = [
+  'addToFavoritesLearn',
+  `wordLearn-${currentType}`,
+  `translationLearn-${currentType}`,
+  `ruleLearn-${currentType}`,
+  `sentenceHead-${currentType}`,
+  `exampleLearn-${currentType}`,
+]
+
 // Learn elements visibility
 function hideLearnElements() {
-  const elementIds = [
-    'addToFavoritesLearn',
-    'wordLearn-' + currentType,
-    'translationLearn-' + currentType,
-    'ruleLearn-' + currentType,
-    'sentenceHead-' + currentType,
-    'exampleLearn-' + currentType,
-  ]
+  const elementIds = [...learnElementIds]
 
   elementIds.forEach((id) => {
     const element = document.getElementById(id)
@@ -195,19 +197,17 @@ function hideLearnElements() {
 }
 
 function showLearnElements() {
-  const elementIds = [
-    'addToFavoritesLearn',
-    'wordLearn-' + currentType,
-    'translationLearn-' + currentType,
-    'ruleLearn-' + currentType,
-    'sentenceHead-' + currentType,
-    'exampleLearn-' + currentType,
-  ]
+  const elementIds = [...learnElementIds]
 
   elementIds.forEach((id) => {
     const element = document.getElementById(id)
     if (element) {
-      element.style.display = 'block'
+      const isAdjectiveOrAdverb =
+        currentType === 'adjective' || currentType === 'adverb'
+      const isElementRuleLearn = id === `ruleLearn-${currentType}`
+
+      element.style.display =
+        isAdjectiveOrAdverb && isElementRuleLearn ? 'none' : 'block'
     }
   })
 }
@@ -418,9 +418,14 @@ function showLearnWord() {
     ornek || 'N/A'
 
   const ruleLearnElement = document.getElementById('ruleLearn-' + currentType)
+  const isAdjectiveOrAdverb =
+    currentType === 'adjective' || currentType === 'adverb'
 
   // Kural setini göster
-  if (kural) {
+  if (!kural || isAdjectiveOrAdverb) {
+    ruleLearnElement.innerText = ''
+    ruleLearnElement.style.display = 'none'
+  } else {
     ruleLearnElement.innerText = `Rule: ${kural}`
     ruleLearnElement.style.display = 'block'
 
@@ -428,9 +433,6 @@ function showLearnWord() {
     ruleLearnElement.classList.remove('highlight-animation')
     void ruleLearnElement.offsetWidth // Bu satır animasyonu yeniden tetikler
     ruleLearnElement.classList.add('highlight-animation')
-  } else {
-    ruleLearnElement.innerText = ''
-    ruleLearnElement.style.display = 'none'
   }
 
   // Favori ikonlarını güncelle
