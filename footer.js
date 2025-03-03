@@ -176,7 +176,7 @@ function hideSkeleton() {
 }
 
 const learnElementIds = [
-  'addToFavoritesLearn',
+  `addToFavoritesLearn-${currentType}`,
   `wordLearn-${currentType}`,
   `translationLearn-${currentType}`,
   `ruleLearn-${currentType}`,
@@ -1222,8 +1222,8 @@ function setupEventListeners() {
     setupListenerForIknowAndLearn(iKnowButtonAdjective, repeatButtonAdjective)
     setupListenerForIknowAndLearn(iKnowButtonAdverb, repeatButtonAdverb)
 
-    const outfav = document.getElementById('outfav')
-    const infav = document.getElementById('infav')
+    const outfav = document.getElementById(`outfav-${currentType}`)
+    const infav = document.getElementById(`infav-${currentType}`)
 
     // Favorite buttons
     if (outfav && !outfav.hasAttribute('listener-attached')) {
@@ -1274,8 +1274,8 @@ document.addEventListener('DOMContentLoaded', () => {
             node.nodeType === 1 && // Element node
             (node.id === `repeatButtonLearn-${currentType}` ||
               node.id === `iKnowButtonLearn-${currentType}` ||
-              node.id === 'outfav' ||
-              node.id === 'infav')
+              node.id === `outfav-${currentType}` ||
+              node.id === `infav-${currentType}`)
         )
       })
 
@@ -1343,8 +1343,8 @@ function updateExerciseCounter() {
 }
 
 function addToFavorites() {
-  const inFavImage = document.getElementById('infav')
-  const outFavImage = document.getElementById('outfav')
+  const inFavImage = document.getElementById(`infav-${currentType}`)
+  const outFavImage = document.getElementById(`outfav-${currentType}`)
   const feedbackElement = document.getElementById('favoritesFeedback')
 
   if (kelimeListesi.length === 0 || currentLearnIndex >= kelimeListesi.length) {
@@ -1388,8 +1388,8 @@ function isItInFavorites(currentWord, favoriteWords) {
 }
 
 function updateFavoriteIcons() {
-  const inFavImage = document.getElementById('infav')
-  const outFavImage = document.getElementById('outfav')
+  const inFavImage = document.getElementById(`infav-${currentType}`)
+  const outFavImage = document.getElementById(`outfav-${currentType}`)
 
   const currentWord = kelimeListesi[currentLearnIndex]
   const favoriteWords = JSON.parse(localStorage.getItem('favoriteWords')) || []
