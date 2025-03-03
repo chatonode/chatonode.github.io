@@ -1222,18 +1222,54 @@ function setupEventListeners() {
     setupListenerForIknowAndLearn(iKnowButtonAdjective, repeatButtonAdjective)
     setupListenerForIknowAndLearn(iKnowButtonAdverb, repeatButtonAdverb)
 
-    const outfav = document.getElementById(`outfav-${currentType}`)
-    const infav = document.getElementById(`infav-${currentType}`)
+    const outfavNoun = document.getElementById(`outfav-noun`)
+    const infavNoun = document.getElementById(`infav-noun`)
+    const outfavVerb = document.getElementById(`outfav-verb`)
+    const infavVerb = document.getElementById(`infav-verb`)
+    const outfavAdjective = document.getElementById(`outfav-adjective`)
+    const infavAdjective = document.getElementById(`infav-adjective`)
+    const outfavAdverb = document.getElementById(`outfav-adverb`)
+    const infavAdverb = document.getElementById(`infav-adverb`)
 
-    // Favorite buttons
-    if (outfav && !outfav.hasAttribute('listener-attached')) {
-      outfav.addEventListener('click', addToFavorites)
-      outfav.setAttribute('listener-attached', 'true')
+    // Noun - Favorite buttons
+    if (outfavNoun && !outfavNoun.hasAttribute('listener-attached')) {
+      outfavNoun.addEventListener('click', addToFavorites)
+      outfavNoun.setAttribute('listener-attached', 'true')
     }
 
-    if (infav && !infav.hasAttribute('listener-attached')) {
-      infav.addEventListener('click', removeFavorite)
-      infav.setAttribute('listener-attached', 'true')
+    if (infavNoun && !infavNoun.hasAttribute('listener-attached')) {
+      infavNoun.addEventListener('click', removeFavorite)
+      infavNoun.setAttribute('listener-attached', 'true')
+    }
+    // Verb - Favorite buttons
+    if (outfavVerb && !outfavVerb.hasAttribute('listener-attached')) {
+      outfavVerb.addEventListener('click', addToFavorites)
+      outfavVerb.setAttribute('listener-attached', 'true')
+    }
+
+    if (infavVerb && !infavVerb.hasAttribute('listener-attached')) {
+      infavVerb.addEventListener('click', removeFavorite)
+      infavVerb.setAttribute('listener-attached', 'true')
+    }
+    // Adjective - Favorite buttons
+    if (outfavAdjective && !outfavAdjective.hasAttribute('listener-attached')) {
+      outfavAdjective.addEventListener('click', addToFavorites)
+      outfavAdjective.setAttribute('listener-attached', 'true')
+    }
+
+    if (infavAdjective && !infavAdjective.hasAttribute('listener-attached')) {
+      infavAdjective.addEventListener('click', removeFavorite)
+      infavAdjective.setAttribute('listener-attached', 'true')
+    }
+    // Adverb - Favorite buttons
+    if (outfavAdverb && !outfavAdverb.hasAttribute('listener-attached')) {
+      outfavAdverb.addEventListener('click', addToFavorites)
+      outfavAdverb.setAttribute('listener-attached', 'true')
+    }
+
+    if (infavAdverb && !infavAdverb.hasAttribute('listener-attached')) {
+      infavAdverb.addEventListener('click', removeFavorite)
+      infavAdverb.setAttribute('listener-attached', 'true')
     }
   } catch (error) {
     console.error('Error in setupEventListeners:', error)
@@ -1366,7 +1402,7 @@ function addToFavorites() {
     type: currentType,
     almanca: currentWord.almanca,
     ingilizce: currentWord.ingilizce,
-    seviye: currentWord.seviye || 'N/A'
+    seviye: currentWord.seviye || 'N/A',
   })
   localStorage.setItem('favoriteWords', JSON.stringify(favoriteWords))
 
