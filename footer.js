@@ -787,7 +787,7 @@ function checkNonNounAnswer(userInput) {
     }
     document.getElementById(
       'feedbackMessage-' + currentType
-    ).innerText = `Upps! ⚠️ Rule: ${kural}`
+    ).innerText = `Upps! Try again. 💪`
     document.getElementById('feedbackMessage-' + currentType).style.color =
       'red'
     setTimeout(() => {
