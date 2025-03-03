@@ -1465,7 +1465,7 @@ function navigateToPage(pageId) {
 
 document.addEventListener('DOMContentLoaded', async () => {
   showSkeleton()
-  localStorage.clear()
+  // localStorage.clear()
 
   try {
     const lastSelectedTopic = 'b1telcpt1'
