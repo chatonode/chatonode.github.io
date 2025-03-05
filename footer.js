@@ -1381,7 +1381,9 @@ function updateExerciseCounter() {
 function addToFavorites() {
   const inFavImage = document.getElementById(`infav-${currentType}`)
   const outFavImage = document.getElementById(`outfav-${currentType}`)
-  const feedbackElement = document.getElementById('favoritesFeedback')
+  const feedbackElement = document.getElementById(
+    `favoritesFeedback-${currentType}`
+  )
 
   if (kelimeListesi.length === 0 || currentLearnIndex >= kelimeListesi.length) {
     feedbackElement.innerText = 'No word to add to favorites!'
@@ -1442,7 +1444,9 @@ function updateFavoriteIcons() {
 
 function removeFavorite() {
   // Favorilerden kaldır
-  const feedbackElement = document.getElementById('favoritesFeedback')
+  const feedbackElement = document.getElementById(
+    `favoritesFeedback-${currentType}`
+  )
   const currentWord = kelimeListesi[currentLearnIndex]
   let favoriteWords = JSON.parse(localStorage.getItem('favoriteWords')) || []
   favoriteWords = favoriteWords.filter(
