@@ -226,19 +226,30 @@ document.querySelectorAll('.dropdown-link').forEach((link) => {
       // Dropdown başlığını güncelle
       document.getElementById('dropdownHeader').innerText = selectedText
 
-      // // Sayaçları sıfırla
-      Object.entries(learnedWords).forEach(([key, _]) => {
-        learnedWords[key] = 0
-      })
-      localStorage.setItem('learnedWords', JSON.stringify(learnedWords))
+      // If local storage is missing:
+      // - learned 'learn' words
+      const completedLearnWords = localStorage.getItem('learnedWords')
+      if (!completedLearnWords) {
+        // // Sayaçları sıfırla
+        Object.entries(learnedWords).forEach(([key, _]) => {
+          learnedWords[key] = 0
+        })
+        localStorage.setItem('learnedWords', JSON.stringify(learnedWords))
+      }
 
-      Object.entries(correctAnswerWordsCounter).forEach(([key, _]) => {
-        correctAnswerWordsCounter[key] = 0
-      })
-      localStorage.setItem(
-        'correctAnswerWordsCounter',
-        JSON.stringify(correctAnswerWordsCounter)
+      // - learned 'exercise' words
+      const completedExerciseWords = localStorage.getItem(
+        correctAnswerWordsCounter
       )
+      if (!completedExerciseWords) {
+        Object.entries(correctAnswerWordsCounter).forEach(([key, _]) => {
+          correctAnswerWordsCounter[key] = 0
+        })
+        localStorage.setItem(
+          'correctAnswerWordsCounter',
+          JSON.stringify(correctAnswerWordsCounter)
+        )
+      }
 
       // UI'ı güncelle
       document.getElementById(
@@ -252,8 +263,13 @@ document.querySelectorAll('.dropdown-link').forEach((link) => {
       updateTopicNames(selectedOption)
 
       // İndeksleri sıfırla
-      currentLearnIndex = 0
-      currentExerciseIndex = 0
+      currentLearnIndex = !completedLearnWords
+        ? 0
+        : completedLearnWords[currentType]
+
+      currentExerciseIndex = !completedExerciseWords
+        ? 0
+        : completedExerciseWords[currentType]
 
       try {
         await loadWords(selectedOption)
@@ -297,7 +313,7 @@ async function loadWords(topic) {
     shuffleArray(kelimeListesiExercise)
 
     // LocalStorage'daki progress listelerini temizle
-    localStorage.setItem('inProgressWords', JSON.stringify(inProgressWords))
+    // localStorage.setItem('inProgressWords', JSON.stringify(inProgressWords))
     //localStorage.setItem("learnedWithExerciseWords", JSON.stringify([]));
 
     document.getElementById(
