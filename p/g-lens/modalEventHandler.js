@@ -1,6 +1,12 @@
 // modalEventHandler.js
 import { Modal } from './modal.js'
-import { loadReportData, initCharts } from './reportVisualization.js'
+import {
+  loadReportData,
+  getVerticalBarChartData,
+  initVerticalBarChart,
+  getDoughnutChartData,
+  initDoughnutChart,
+} from './reportVisualization.js'
 
 document.addEventListener('DOMContentLoaded', () => {
   const modalElement = document.getElementById('guideModal')
@@ -14,7 +20,8 @@ document.addEventListener('DOMContentLoaded', () => {
     guideModal.show()
     const reportData = await loadReportData()
     if (reportData) {
-      initCharts(reportData)
+      initVerticalBarChart(getVerticalBarChartData(reportData))
+      initDoughnutChart(getDoughnutChartData(reportData))
     }
   })
 
