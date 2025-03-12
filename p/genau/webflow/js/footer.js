@@ -11,24 +11,36 @@ const JSON_URLS_NOUN = {
 }
 
 const JSON_URLS_VERB = {
-  b1telcpt1: 'https://chatonode.github.io/verb.json',
-  b1telcpt2: 'https://chatonode.github.io/verb.json',
-  b1telcpt3: 'https://chatonode.github.io/verb.json',
-  b1telcpt4: 'https://chatonode.github.io/verb.json',
+  b1telcpt1:
+    'https://chatonode.github.io/p/genau/webflow/json/a1-a2/verb.json',
+  b1telcpt2:
+    'https://chatonode.github.io/p/genau/webflow/json/a1-a2/verb.json',
+  b1telcpt3:
+    'https://chatonode.github.io/p/genau/webflow/json/a1-a2/verb.json',
+  b1telcpt4:
+    'https://chatonode.github.io/p/genau/webflow/json/a1-a2/verb.json',
 }
 
 const JSON_URLS_ADJECTIVE = {
-  b1telcpt1: 'https://chatonode.github.io/adjective.json',
-  b1telcpt2: 'https://chatonode.github.io/adjective.json',
-  b1telcpt3: 'https://chatonode.github.io/adjective.json',
-  b1telcpt4: 'https://chatonode.github.io/adjective.json',
+  b1telcpt1:
+    'https://chatonode.github.io/p/genau/webflow/json/a1-a2/adjective.json',
+  b1telcpt2:
+    'https://chatonode.github.io/p/genau/webflow/json/a1-a2/adjective.json',
+  b1telcpt3:
+    'https://chatonode.github.io/p/genau/webflow/json/a1-a2/adjective.json',
+  b1telcpt4:
+    'https://chatonode.github.io/p/genau/webflow/json/a1-a2/adjective.json',
 }
 
 const JSON_URLS_ADVERB = {
-  b1telcpt1: 'https://chatonode.github.io/adverb.json',
-  b1telcpt2: 'https://chatonode.github.io/adverb.json',
-  b1telcpt3: 'https://chatonode.github.io/adverb.json',
-  b1telcpt4: 'https://chatonode.github.io/adverb.json',
+  b1telcpt1:
+    'https://chatonode.github.io/p/genau/webflow/json/a1-a2/adverb.json',
+  b1telcpt2:
+    'https://chatonode.github.io/p/genau/webflow/json/a1-a2/adverb.json',
+  b1telcpt3:
+    'https://chatonode.github.io/p/genau/webflow/json/a1-a2/adverb.json',
+  b1telcpt4:
+    'https://chatonode.github.io/p/genau/webflow/json/a1-a2/adverb.json',
 }
 
 const JSON_URLS = {
