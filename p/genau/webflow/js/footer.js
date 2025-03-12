@@ -14,7 +14,7 @@ const JSON_URLS_VERB = {
   b1telcpt1:
     'https://chatonode.github.io/p/genau/webflow/json/a1-a2/verb.json',
   b1telcpt2:
-    'https://chatonode.github.io/p/genau/webflow/json/a1-a2/verb.json',
+    'https://chatonode.github.io/p/genau/webflow/json/a2-b1/verb.json',
   b1telcpt3:
     'https://chatonode.github.io/p/genau/webflow/json/a1-a2/verb.json',
   b1telcpt4:
@@ -25,7 +25,7 @@ const JSON_URLS_ADJECTIVE = {
   b1telcpt1:
     'https://chatonode.github.io/p/genau/webflow/json/a1-a2/adjective.json',
   b1telcpt2:
-    'https://chatonode.github.io/p/genau/webflow/json/a1-a2/adjective.json',
+    'https://chatonode.github.io/p/genau/webflow/json/a2-b1/adjective.json',
   b1telcpt3:
     'https://chatonode.github.io/p/genau/webflow/json/a1-a2/adjective.json',
   b1telcpt4:
@@ -36,7 +36,7 @@ const JSON_URLS_ADVERB = {
   b1telcpt1:
     'https://chatonode.github.io/p/genau/webflow/json/a1-a2/adverb.json',
   b1telcpt2:
-    'https://chatonode.github.io/p/genau/webflow/json/a1-a2/adverb.json',
+    'https://chatonode.github.io/p/genau/webflow/json/a2-b1/adverb.json',
   b1telcpt3:
     'https://chatonode.github.io/p/genau/webflow/json/a1-a2/adverb.json',
   b1telcpt4:
