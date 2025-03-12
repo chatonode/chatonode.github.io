@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Organizations Map Demo</title>
+    <link rel="stylesheet" href="styles.css" />
+    <!-- Chart.js from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <!-- Guide Button -->
+    <button id="guideButton">Guide</button>
+
+    <!-- Modal Structure -->
+    <div id="guideModal" class="modal hidden">
+      <div class="modal-content">
+        <span id="modalClose" class="close-button">&times;</span>
+        <div id="chartContainer">
+          <canvas id="countryChart"></canvas>
+          <canvas id="sectorChart"></canvas>
+          <canvas id="keywordChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Load the event handler (ES6 modules) -->
+    <script type="module" src="modalEventHandler.js"></script>
+  </body>
+</html>
