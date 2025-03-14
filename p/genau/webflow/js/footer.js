@@ -234,30 +234,19 @@ document.querySelectorAll('.dropdown-link').forEach((link) => {
       // Dropdown başlığını güncelle
       document.getElementById('dropdownHeader').innerText = selectedText
 
-      // If local storage is missing:
-      // - learned 'learn' words
-      const completedLearnWords = localStorage.getItem('learnedWords')
-      if (!completedLearnWords) {
-        // // Sayaçları sıfırla
-        Object.entries(learnedWords).forEach(([key, _]) => {
-          learnedWords[key] = 0
-        })
-        localStorage.setItem('learnedWords', JSON.stringify(learnedWords))
-      }
+      // // Sayaçları sıfırla
+      Object.entries(learnedWords).forEach(([key, _]) => {
+        learnedWords[key] = 0
+      })
+      localStorage.setItem('learnedWords', JSON.stringify(learnedWords))
 
-      // - learned 'exercise' words
-      const completedExerciseWords = localStorage.getItem(
-        correctAnswerWordsCounter
+      Object.entries(correctAnswerWordsCounter).forEach(([key, _]) => {
+        correctAnswerWordsCounter[key] = 0
+      })
+      localStorage.setItem(
+        'correctAnswerWordsCounter',
+        JSON.stringify(correctAnswerWordsCounter)
       )
-      if (!completedExerciseWords) {
-        Object.entries(correctAnswerWordsCounter).forEach(([key, _]) => {
-          correctAnswerWordsCounter[key] = 0
-        })
-        localStorage.setItem(
-          'correctAnswerWordsCounter',
-          JSON.stringify(correctAnswerWordsCounter)
-        )
-      }
 
       // UI'ı güncelle
       document.getElementById(
@@ -271,13 +260,8 @@ document.querySelectorAll('.dropdown-link').forEach((link) => {
       updateTopicNames(selectedOption)
 
       // İndeksleri sıfırla
-      currentLearnIndex = !completedLearnWords
-        ? 0
-        : completedLearnWords[currentType]
-
-      currentExerciseIndex = !completedExerciseWords
-        ? 0
-        : completedExerciseWords[currentType]
+      currentLearnIndex = 0
+      currentExerciseIndex = 0
 
       try {
         await loadWords(selectedOption)
