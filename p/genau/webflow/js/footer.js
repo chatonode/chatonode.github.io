@@ -1643,7 +1643,7 @@ function resetExerciseButtons() {
 
 function showModal(message) {
   var modal = document.getElementById(`customModal-${currentType}`)
-  var modalMessage = document.getElementById('modalMessage')
+  var modalMessage = document.getElementById(`modalMessage-${currentType}`)
   var closeButton = document.querySelector('.close-button')
 
   modalMessage.innerText = message // **Mesajı değiştir**
@@ -1662,7 +1662,9 @@ function showModal(message) {
 
 function showModalExercise(message) {
   var modal = document.getElementById(`customModalExercise-${currentType}`)
-  var modalMessage = document.getElementById('modalMessageExercise')
+  var modalMessage = document.getElementById(
+    `modalMessageExercise-${currentType}`
+  )
   var closeButton = document.querySelector('.close-button')
 
   modalMessage.innerText = message // **Mesajı değiştir**
