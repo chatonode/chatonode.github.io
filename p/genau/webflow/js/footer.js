@@ -325,7 +325,7 @@ async function loadWords(topic) {
     shuffleArray(kelimeListesiExercise)
 
     // LocalStorage'daki progress listelerini temizle
-    // localStorage.setItem('inProgressWords', JSON.stringify(inProgressWords))
+    localStorage.setItem('inProgressWords', JSON.stringify(inProgressWords))
     //localStorage.setItem("learnedWithExerciseWords", JSON.stringify([]));
 
     document.getElementById(
