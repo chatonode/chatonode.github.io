@@ -381,7 +381,7 @@ function showLearnWord() {
       'No words to display.'
     document.getElementById('translationLearn-' + currentType).innerText = ''
     document.getElementById('exampleLearn-' + currentType).innerText = ''
-    document.getElementById('levelTagLearn').innerText = ''
+    document.getElementById(`levelTagLearn-${currentType}`).innerText = ''
     document.getElementById('ruleLearn-' + currentType).innerText = '' // Kural boş
 
     const iKnowButton = document.getElementById(
@@ -439,7 +439,7 @@ function showLearnWord() {
       break
   }
 
-  document.getElementById('levelTagLearn').innerText = seviye || 'N/A'
+  document.getElementById(`levelTagLearn-${currentType}`).innerText = seviye || 'N/A'
   document.getElementById('translationLearn-' + currentType).innerText =
     ingilizce || 'N/A'
   document.getElementById('exampleLearn-' + currentType).innerText =
@@ -508,7 +508,7 @@ function getRandomTranslationResult(selectedWord) {
 function showExerciseWord() {
   if (!kelimeListesiExercise.length) {
     // Liste boşsa UI'ı temizle
-    document.getElementById('levelTagExercise').innerText = ''
+    document.getElementById(`levelTagExercise-${currentType}`).innerText = ''
     document.getElementById('exerciseWord-' + currentType).innerText = ''
     document.getElementById('exerciseTranslation-' + currentType).innerText = ''
     return
@@ -537,7 +537,7 @@ function showExerciseWord() {
   }
 
   if (kelimeListesiExercise.length === 0) {
-    document.getElementById('levelTagExercise').innerText = ''
+    document.getElementById(`levelTagExercise-${currentType}`).innerText = ''
     console.log('Kelime listesi boş. Gösterilecek kelime yok.')
     return
   }
@@ -577,7 +577,7 @@ function showExerciseWord() {
 
   // Kelimenin Almanca kısmını göster
   document.getElementById('exerciseWord-' + currentType).innerText = kelime
-  document.getElementById('levelTagExercise').innerText = seviye || 'N/A'
+  document.getElementById(`levelTagExercise-${currentType}`).innerText = seviye || 'N/A'
 
   // İngilizce çeviriyi göster (ID üzerinden erişim)
   const exerciseTranslationElement = document.getElementById(
