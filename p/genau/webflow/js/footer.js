@@ -11,14 +11,10 @@ const JSON_URLS_NOUN = {
 }
 
 const JSON_URLS_VERB = {
-  b1telcpt1:
-    'https://chatonode.github.io/p/genau/webflow/json/a1-a2/verb.json',
-  b1telcpt2:
-    'https://chatonode.github.io/p/genau/webflow/json/a2-b1/verb.json',
-  b1telcpt3:
-    'https://chatonode.github.io/p/genau/webflow/json/a1-a2/verb.json',
-  b1telcpt4:
-    'https://chatonode.github.io/p/genau/webflow/json/a1-a2/verb.json',
+  b1telcpt1: 'https://chatonode.github.io/p/genau/webflow/json/a1-a2/verb.json',
+  b1telcpt2: 'https://chatonode.github.io/p/genau/webflow/json/a2-b1/verb.json',
+  b1telcpt3: 'https://chatonode.github.io/p/genau/webflow/json/a1-a2/verb.json',
+  b1telcpt4: 'https://chatonode.github.io/p/genau/webflow/json/a1-a2/verb.json',
 }
 
 const JSON_URLS_ADJECTIVE = {
@@ -358,8 +354,15 @@ function updateTopicNames(selectedOption) {
   }
 
   const topicName = topicNames[selectedOption] || 'Level: A1 - A2'
-  document.getElementById(`selectedTopicName-${currentType}`).innerText = topicName
-  document.getElementById(`selectedTopicNameExercise-${currentType}`).innerText = topicName
+  if (document.getElementById(`selectedTopicName-${currentType}`)) {
+    document.getElementById(`selectedTopicName-${currentType}`).innerText =
+      topicName
+  }
+  if (document.getElementById(`selectedTopicNameExercise-${currentType}`)) {
+    document.getElementById(
+      `selectedTopicNameExercise-${currentType}`
+    ).innerText = topicName
+  }
 }
 
 function artikelRenk(artikel) {
@@ -439,7 +442,8 @@ function showLearnWord() {
       break
   }
 
-  document.getElementById(`levelTagLearn-${currentType}`).innerText = seviye || 'N/A'
+  document.getElementById(`levelTagLearn-${currentType}`).innerText =
+    seviye || 'N/A'
   document.getElementById('translationLearn-' + currentType).innerText =
     ingilizce || 'N/A'
   document.getElementById('exampleLearn-' + currentType).innerText =
@@ -577,7 +581,8 @@ function showExerciseWord() {
 
   // Kelimenin Almanca kısmını göster
   document.getElementById('exerciseWord-' + currentType).innerText = kelime
-  document.getElementById(`levelTagExercise-${currentType}`).innerText = seviye || 'N/A'
+  document.getElementById(`levelTagExercise-${currentType}`).innerText =
+    seviye || 'N/A'
 
   // İngilizce çeviriyi göster (ID üzerinden erişim)
   const exerciseTranslationElement = document.getElementById(
