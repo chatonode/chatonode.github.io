@@ -358,8 +358,8 @@ function updateTopicNames(selectedOption) {
   }
 
   const topicName = topicNames[selectedOption] || 'Level: A1 - A2'
-  document.getElementById('selectedTopicName').innerText = topicName
-  document.getElementById('selectedTopicNameExercise').innerText = topicName
+  document.getElementById(`selectedTopicName-${currentType}`).innerText = topicName
+  document.getElementById(`selectedTopicNameExercise-${currentType}`).innerText = topicName
 }
 
 function artikelRenk(artikel) {
@@ -1653,7 +1653,7 @@ function resetExerciseButtons() {
 }
 
 function showModal(message) {
-  var modal = document.getElementById('customModal')
+  var modal = document.getElementById(`customModal-${currentType}`)
   var modalMessage = document.getElementById('modalMessage')
   var closeButton = document.querySelector('.close-button')
 
@@ -1672,7 +1672,7 @@ function showModal(message) {
 }
 
 function showModalExercise(message) {
-  var modal = document.getElementById('customModalExercise')
+  var modal = document.getElementById(`customModalExercise-${currentType}`)
   var modalMessage = document.getElementById('modalMessageExercise')
   var closeButton = document.querySelector('.close-button')
 
